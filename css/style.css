@@ -1,0 +1,13 @@
+body {
+  font: 10px sans-serif;
+}
+
+path {
+  stroke: grey;
+  /*stroke-width: 1;*/
+  fill: none;
+  cursor:pointer;
+}
+.container {
+    margin-left: 20px !important;
+}
