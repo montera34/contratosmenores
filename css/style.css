@@ -40,3 +40,8 @@ div.tooltip {
 .bar {
   cursor:pointer;
 }
+
+.bar:hover  {
+  fill: red;
+  opacity:1;
+}
