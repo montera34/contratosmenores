@@ -66,7 +66,13 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 		.data(data)
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-sm";})
-		.text(function(d) { return d.people + " ("+ d.entidad+") "; })
+		.text(function(d) {  
+			if (d.entidad == '-') {
+					return d.people; }
+				else {
+					return d.people + " ("+ d.entidad+") "; 
+				}
+			})
 		.on('click',function(d) { //when click on name
 			var personflat = replacement(d.people); //removes spaces and . from person name;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-sm'){
