@@ -17,9 +17,7 @@ var formatComma = d3.format(",");
 //Sets yScale
 var yValue = function(d) { return d.SaldoCalculado; }, // data -> value
     yScale = d3.scale.linear().range([height, 0]), // fuction that converts the data values into display values: value -> display
-    yScaleB = d3.scale.linear().range([height, 0]),
     yAxis =  d3.svg.axis().scale(yScale).orient("left").tickFormat(formatComma);
-    yAxisB = d3.svg.axis().scale(yScaleB).orient("left").tickFormat(formatComma);
 
 //Adds the div that is used for the tooltip
 var div = d3.select("body").append("div")   
@@ -70,7 +68,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 	//Sets scales
   xScale.domain(d3.extent(data, function(d) { return d.date; })); //sets xScale depending on dates values
   //yScale.domain(d3.extent(data, function(d) { return d.entradas; })).nice(); //sets yScale depending on entradas values
-	yScale.domain([0,15000]).nice(); //sets yScale depending on entradas values
+	yScale.domain([0,16000]).nice(); //sets yScale depending on entradas values
 
 	//Sets X axis 
 	svg.append("g")
@@ -96,19 +94,19 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("div")
-		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
+		.attr("class", function(d) { return "inactive btn btn-default";})
 		.text(function(d) { return d.people + " ("+ d.entidad+")"; })
 		.on('click',function(d) { //when click on name
 			var personflat = replacement(d.people), //removes spaces and . from person name
 			    tipodonante = d.tipo,
 			    confirmado = d.confirmado;
-			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
+			if (d3.select(this).attr('class')==='inactive btn btn-default'){
 				//first time
 				svg.selectAll('svg .bar.'+personflat).style("opacity",.8);
-				d3.select(this).transition().duration(0).attr("class","btn-warning btn btn-default btn-xs"); //adds class .warning to button
+				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default"); //adds class success to button
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-warning btn btn-default btn-xs'){
-				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .active class
+			} else if (d3.select(this).attr('class')==='btn-success btn btn-default'){
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default";}); //removes .success class
 				svg.selectAll('svg .bar').style("opacity",.1);
 			}
 		});
@@ -134,7 +132,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 		    div.transition()        
 			.duration(200)      
 			.style("opacity", .9);      
-		    div.html(d.date.getFullYear() + '-' + d.date.getMonth() + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + d.importe + "€ <br/>"  + d.actividad + "<br/>"  + d.comercio + "<br/>"  + d.operacion)
+		    div.html(d.date.getFullYear() + '-' + d.date.getMonth() + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatComma(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.comercio + "<br/>"  + d.operacion)
 			.style("left", (d3.event.pageX + 1) + "px")
 			.style("top", (d3.event.pageY - 120) + "px");
 		    })
