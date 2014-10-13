@@ -32,3 +32,11 @@ div.tooltip {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+.x.axis path.domain{
+	display: none;
+}
+
+.bar {
+  cursor:pointer;
+}

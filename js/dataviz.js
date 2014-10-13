@@ -48,12 +48,6 @@ var xAxis = d3.svg.axis()
     .scale(xScale)
     .ticks(d3.time.years, 1);
 
-// draw x axis with labels and move to the bottom of the chart area
-svg.append("g")
-    .attr("class", "xaxis")   // give it a class so it can be used to select only xaxis labels  below
-    .attr("transform", "translate(0," + (height) + ")")
-    .call(xAxis);
-
 //Bars time scale
 var barstimescale = svg.append('g').attr('id','barstimescale');
 
@@ -88,28 +82,31 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		.attr("font-size","10")
 		.text("Euros");
 
+//Legend
 d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 	var legend = d3.select("#legend").attr("class", "legend");
-	legend.append("h5").style("font-weight","bold").text("Selecciona una persona"); //legend title
+	//legend.append("h5").style("font-weight","bold").text("Selecciona "); //legend title
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("div")
-		.attr("class", function(d) { return "inactive btn btn-default";})
-		.text(function(d) { return d.people + " ("+ d.entidad+")"; })
+		.attr("class", function(d) { return "inactive btn btn-default btn-sm";})
+		.text(function(d) { return d.people + " ("+ d.entidad+") "; })
 		.on('click',function(d) { //when click on name
 			var personflat = replacement(d.people), //removes spaces and . from person name
 			    tipodonante = d.tipo,
 			    confirmado = d.confirmado;
-			if (d3.select(this).attr('class')==='inactive btn btn-default'){
+			if (d3.select(this).attr('class')==='inactive btn btn-default btn-sm'){
 				//first time
+				svg.selectAll('svg .bar').style("opacity",.04);
 				svg.selectAll('svg .bar.'+personflat).style("opacity",.8);
-				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default"); //adds class success to button
+				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-sm"); //adds class success to button
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-success btn btn-default'){
-				d3.select(this).attr("class",function(d) { return "inactive btn btn-default";}); //removes .success class
+			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm'){
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm";}); //removes .success class
 				svg.selectAll('svg .bar').style("opacity",.1);
 			}
-		});
+		})append('img')
+		.attr('src', function(d) { return d.img; });
 }); //end read viplist.tsv file
 		
 	//Sets the bars with time scale
