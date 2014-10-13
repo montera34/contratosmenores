@@ -45,3 +45,21 @@ div.tooltip {
   fill: red;
   opacity:1;
 }
+
+line.topline  {
+  fill: none;
+  stroke: #FFF;
+  shape-rendering: crispEdges;
+  stroke-width:4;
+}
+
+line.topline:hover {
+  fill: none;
+  stroke: #aaa;
+  shape-rendering: crispEdges;
+  stroke-width:4;
+}
+
+.negativo {
+	display:none;
+}
