@@ -68,7 +68,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 		.attr("class", function(d) { return "inactive btn btn-default btn-sm";})
 		.text(function(d) {  
 			if (d.entidad == '-') {
-					return d.people; }
+					return d.people + ' '; }
 				else {
 					return d.people + " ("+ d.entidad+") "; 
 				}
@@ -96,21 +96,24 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("div")
-		.attr("class", function(d) { return "inactive btn btn-default btn-sm";})
+		.attr("class", function(d) { return "inactive btn btn-default btn-sm thing";})
+		.attr("id",function(d) { return d.cosa;})
 		.text(function(d) { return d.cosa; })
 		.on('click',function(d) { //when click on name
 			var cosa = d.cosa;
-			if (d3.select(this).attr('class')==='inactive btn btn-default btn-sm'){
+			if (d3.select(this).attr('class')==='inactive btn btn-default btn-sm thing'){
 				//first time
 				svg.selectAll('svg .bar').style("opacity",.01);
 				svg.selectAll('svg .bar.'+ cosa).style("opacity",.7);
-				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-sm"); //adds class success to button
+				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-sm thing"); //adds class success to button
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm'){
-				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm";}); //removes .success class
+			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm thing'){
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm thing";}); //removes .success class
 				svg.selectAll('svg .bar').style("opacity",.1);
 			}
-		});
+		})
+		//.append("span").style("background-color",function(d) { return d.color; })
+		//.text(".");
 }); //end read thinglist.tsv file
 
 //Enters data.tsv and starts the graph-----------------------------------------

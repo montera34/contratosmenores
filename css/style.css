@@ -67,3 +67,35 @@ line.topline:hover {
 .page-footer {
   margin-top:25px;	
 }
+
+.thing span {
+ width:50px;
+ height:20px;
+}
+
+.cajero, #cajero {
+	fill: #66CC00;
+	background-color: #66CC00;
+}
+.gasolineras, #gasolineras {
+	fill:#0099FF;
+	background-color: #0099FF;
+}
+.hoteles, #hoteles {
+	fill:#FF9900;
+	background-color: #FF9900;
+}
+.joyerias, #joyerias {
+	fill:#FF00CC;
+	background-color: #FF00CC;
+}
+.viajes, #viajes {
+	fill:#9900CC;
+	background-color: #9900CC;
+}
+.restaurantes, #restaurantes {
+	fill:#006699;
+	background-color: #006699;
+}
+
+
