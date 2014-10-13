@@ -60,6 +60,16 @@ line.topline:hover {
   stroke-width:4;
 }
 
+.specialdates line{
+	stroke: #888;
+	stroke-width:2;
+	cursor:pointer;
+}
+.specialdates text {
+	font-size:12px;
+	fill:#999;
+}
+
 .negativo {
 	display:none;
 }
@@ -81,7 +91,7 @@ line.topline:hover {
 	fill:#0099FF;
 	background-color: #0099FF;
 }
-.hoteles, #hoteles {
+.hoteles, #hoteles, .hotel {
 	fill:#FF9900;
 	background-color: #FF9900;
 }
@@ -89,9 +99,9 @@ line.topline:hover {
 	fill:#FF00CC;
 	background-color: #FF00CC;
 }
-.viajes, #viajes {
-	fill:#9900CC;
-	background-color: #9900CC;
+.viajes, #viajes, .easyjet, .klm, .air, .spanair, .iberia {
+	fill:#9900FF;
+	background-color: #9900FF;
 }
 .restaurantes, #restaurantes {
 	fill:#006699;

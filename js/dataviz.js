@@ -8,7 +8,7 @@ Also some ideas come from https://github.com/erhardt/Attention-Plotter
 var barwidth = 1.98; //width of the bars
 
 //Prepare canvas size
-var margin = {top: 35, right: 20, bottom: 20, left: 65},
+var margin = {top: 35, right: 20, bottom: 70, left: 65},
     width = 1300 - margin.left - margin.right,
     height = 550 - margin.top - margin.bottom;
 var topvalue = 10000;
@@ -57,6 +57,9 @@ var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '')
 
 //set top line
 var topline = svg.append('g').attr('class','topline');
+
+//set special dates
+var specialdates = svg.append('g').attr('class','specialdates').attr('id','specialdates');
 
 //Legend
 d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
@@ -111,7 +114,9 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the viplist.tsv file
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm thing";}); //removes .success class
 				svg.selectAll('svg .bar').style("opacity",.1);
 			}
-		})
+		});	
+	legend.select('#ingles').html("El Corte Inglés");
+	legend.select('#efectivo').html("Disposición en efectivo oficina");
 		//.append("span").style("background-color",function(d) { return d.color; })
 		//.text(".");
 }); //end read thinglist.tsv file
@@ -148,10 +153,10 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
       	.data(data)
     	.enter().append("rect")
     	.attr("fill", function(d) { return d.importe < 0 ? "#339900" : "#336600"; })
-	.attr("opacity",.1)
+	.attr("opacity",.2)
 	.attr("class", 
 		function(d) {
-			return replacement(d.quien) + " bar " + d.operacion.toLowerCase() + " " + d.actividad.replace(/\,+/g, '').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+			return replacement(d.quien) + " bar " + d.operacion.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + "  " + d.comercio.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
@@ -166,7 +171,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		    div.transition()        
 			.duration(200)      
 			.style("opacity", .9);      
-		    div.html(d.date.getFullYear() + '-' + d.date.getMonth() + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatComma(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.comercio + "<br/>"  + d.operacion)
+		    div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatComma(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.comercio + "<br/>"  + d.operacion)
 			.style("left", (d3.event.pageX + 1) + "px")
 			.style("top", (d3.event.pageY - 120) + "px");
 		    })
@@ -175,9 +180,63 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 			.duration(500)
 			.style("opacity", 0);
 		});
-
+		
+	//Special dates
+	specialdates.append("text")
+		.attr("x", 5)
+		.attr("y", height+40)
+		.text("Eventos relacionados");
+	specialdates.append("text")
+		.attr("x", function(d) { return xScale(parseDate('2009-05-22')) + 3; })
+		.attr("y", height+40)
+		.text("Lanzamiento de preferentes de Caja de Madrid"); 
+	specialdates.append('line')
+    .attr('y1', height+24)
+    .attr('y2', height+40)
+    .attr('x1', function(d) { return xScale(parseDate('2009-05-22')); })
+    .attr('x2', function(d) { return xScale(parseDate('2009-05-22')); })
+		.attr('title','Lanzamiento de preferentes de Caja de Madrid\n2009-05-22')
+		.on("mouseover", function(d) {      
+		  d3.select(this).attr('y1', 0)
+		    })
+		.on("mouseout", function(d) {       
+		    d3.select(this).attr('y1', height+20)  
+			});
+	specialdates.append("text")
+		.attr("x", function(d) { return xScale(parseDate('2010-01-28')) + 3; })
+		.attr("y", height+60)
+		.text("Nombramiento Rato como presidente de Caja de Madrid"); 
+	specialdates.append('line')
+    .attr('y1', height+24)
+    .attr('y2', height+60)
+    .attr('x1', function(d) { return xScale(parseDate('2010-01-28')); })
+    .attr('x2', function(d) { return xScale(parseDate('2010-01-28')); })
+		.attr('title','Nombramiento de Rato\ncomo Presidente de Caja de Madrid\n2010-01-28')
+		.on("mouseover", function(d) {      
+		  d3.select(this).attr('y1', 0)
+		    })
+		.on("mouseout", function(d) {       
+		    d3.select(this).attr('y1', height+20)  
+			});
+	specialdates.append("text")
+		.attr("x", function(d) { return xScale(parseDate('2011-07-20')) + 3; })
+		.attr("y", height+40)
+		.text("Salida a bolsa Bankia"); 
+	specialdates.append('line')
+    .attr('y1', height+24)
+    .attr('y2', height+40)
+    .attr('x1', function(d) { return xScale(parseDate('2011-07-20')); })
+    .attr('x2', function(d) { return xScale(parseDate('2011-07-20')); })
+		.attr('title','Salida a bolsa de Bankia\n2011-07-20')
+		.on("mouseover", function(d) {      
+		  d3.select(this).attr('y1', 0)
+		    })
+		.on("mouseout", function(d) {       
+		    d3.select(this).attr('y1', height+20)  
+			});
 });
 
+//Top line
 topline.append('line')
 	.attr('y1', 4)
 	.attr('y2', 4)
@@ -197,8 +256,6 @@ topline.append('line')
 	      .duration(500)
 	      .style("opacity", 0);
 	});
-
-
 
 function type(d) {
   return d;
