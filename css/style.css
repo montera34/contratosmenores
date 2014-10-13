@@ -11,3 +11,17 @@ path {
 .container {
     margin-left: 20px !important;
 }
+
+div.tooltip {
+  position: absolute;
+  padding: 8px;
+  font: 12px sans-serif;
+  background: #ddd;
+  border: 0px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.btn {
+	margin: 3px;
+}

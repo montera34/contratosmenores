@@ -10,7 +10,7 @@ var barwidth = 1.98; //width of the bars
 //Prepare canvas size
 var margin = {top: 35, right: 20, bottom: 100, left: 65},
     width = 1300 - margin.left - margin.right,
-    height = 495 - margin.top - margin.bottom;
+    height = 650 - margin.top - margin.bottom;
 
 var formatComma = d3.format(",");
 
@@ -56,21 +56,11 @@ svg.append("g")
     .attr("transform", "translate(0," + (height) + ")")
     .call(xAxis);
 
-//Adds Background image with envelopes in and out
-var background = svg.append('g').attr('id','backgroundimage');
-background.append("image")
-	.attr("xlink:href", "img/leyenda-1.png")
-	.attr("x", "120")
-	.attr("y", "20")
-	.attr("width", "250")
-	.attr("height", "301");
-
 //Bars time scale
 var barstimescale = svg.append('g').attr('id','barstimescale');
 
 //replaces spaces and . in viplist function(d) { return d.SaldoCalculado; }
-var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '');};
-
+var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').toLowerCase();};
 
 //Enters data.tsv and starts the graph-----------------------------------------
 d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
@@ -80,8 +70,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 	//Sets scales
   xScale.domain(d3.extent(data, function(d) { return d.date; })); //sets xScale depending on dates values
   //yScale.domain(d3.extent(data, function(d) { return d.entradas; })).nice(); //sets yScale depending on entradas values
-	yScale.domain([-2100,14000]).nice(); //sets yScale depending on entradas values
-  yScaleB.domain([-3000,4000]).nice(); 
+	yScale.domain([0,15000]).nice(); //sets yScale depending on entradas values
 
 	//Sets X axis 
 	svg.append("g")
@@ -101,34 +90,58 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		.attr("font-size","10")
 		.text("Euros");
 
+d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
+	var legend = d3.select("#legend").attr("class", "legend");
+	legend.append("h5").style("font-weight","bold").text("Selecciona una persona"); //legend title
+	legend.selectAll('div')
+		.data(data)
+		.enter().append("div")
+		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
+		.text(function(d) { return d.people + " ("+ d.entidad+")"; })
+		.on('click',function(d) { //when click on name
+			var personflat = replacement(d.people), //removes spaces and . from person name
+			    tipodonante = d.tipo,
+			    confirmado = d.confirmado;
+			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
+				//first time
+				svg.selectAll('svg .bar.'+personflat).style("opacity",.8);
+				d3.select(this).transition().duration(0).attr("class","btn-warning btn btn-default btn-xs"); //adds class .warning to button
+			//second time
+			} else if (d3.select(this).attr('class')==='btn-warning btn btn-default btn-xs'){
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .active class
+				svg.selectAll('svg .bar').style("opacity",.1);
+			}
+		});
+}); //end read viplist.tsv file
+		
 	//Sets the bars with time scale
 	barstimescale.selectAll(".bar")
       	.data(data)
     	.enter().append("rect")
-    	.attr("fill", function(d) { return d.importe < 0 ? "#C00000" : "#0055D4"; })
-	.attr("opacity",.3)
+    	.attr("fill", function(d) { return d.importe < 0 ? "#339900" : "#336600"; })
+	.attr("opacity",.1)
 	.attr("class", 
 		function(d) {
-			return d.quien.replace(/\s+/g, '').replace(/\.+/g, '') + " bar" + (d.importe < 0 ? " negativo" : " positivo"); 
+			return replacement(d.quien) + " bar " + d.operacion.toLowerCase() + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
 	.attr("width", barwidth+1)
 	.attr("y", function(d) { return yScale(Math.max(0, d.importe)); })
-	.attr("height", function(d) { return Math.abs(yScale(d.importe) - yScale(0)); })
+	.attr("height", function(d) { return Math.abs(yScale(d.importe < 0 ? 0 : d.importe) - yScale(0)); })
 	//The tooltips time scale
 		.on("mouseover", function(d) {      
 		    div.transition()        
 			.duration(200)      
 			.style("opacity", .9);      
-		    div.html(d.date + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + d.importe + "€ <br/>"  + d.actividad + "<br/>"  +d.comercio)  
-			.style("left", (d3.event.pageX) + "px")     
-			.style("top", (d3.event.pageY - 128) + "px");    
-		    })                  
-		.on("mouseout", function(d) {       
-		    div.transition()        
-			.duration(500)      
-			.style("opacity", 0);   
+		    div.html(d.date.getFullYear() + '-' + d.date.getMonth() + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + d.importe + "€ <br/>"  + d.actividad + "<br/>"  + d.comercio + "<br/>"  + d.operacion)
+			.style("left", (d3.event.pageX + 1) + "px")
+			.style("top", (d3.event.pageY - 120) + "px");
+		    })
+		.on("mouseout", function(d) {
+		    div.transition()
+			.duration(500)
+			.style("opacity", 0);
 		});
 
 });
