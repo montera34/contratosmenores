@@ -13,7 +13,7 @@ var margin = {top: 35, right: 20, bottom: 70, left: 65},
     height = 550 - margin.top - margin.bottom;
 var topvalue = 10000;
 
-var formatComma = d3.format(",");
+var formatComma = d3.format(".0f");
 
 //Sets yScale
 var yValue = function(d) { return d.SaldoCalculado; }, // data -> value
@@ -86,7 +86,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm'){
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm";}); //removes .success class
-				svg.selectAll('svg .bar').style("opacity",.1);
+				svg.selectAll('svg .bar').style("opacity",.4);
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -112,7 +112,7 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the viplist.tsv file
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm thing'){
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm thing";}); //removes .success class
-				svg.selectAll('svg .bar').style("opacity",.1);
+				svg.selectAll('svg .bar').style("opacity",.4);
 			}
 		});	
 	legend.select('#ingles').html("El Corte Inglés");
@@ -153,7 +153,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
       	.data(data)
     	.enter().append("rect")
     	.attr("fill", function(d) { return d.importe < 0 ? "#339900" : "#336600"; })
-	.attr("opacity",.2)
+	.attr("opacity",.5)
 	.attr("class", 
 		function(d) {
 			return replacement(d.quien) + " bar " + d.operacion.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + "  " + d.comercio.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
@@ -207,7 +207,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		.attr("y", height+60)
 		.text("Nombramiento Rato como presidente de Caja de Madrid"); 
 	specialdates.append('line')
-    .attr('y1', height+24)
+    .attr('y1', height+44)
     .attr('y2', height+60)
     .attr('x1', function(d) { return xScale(parseDate('2010-01-28')); })
     .attr('x2', function(d) { return xScale(parseDate('2010-01-28')); })
@@ -216,7 +216,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		  d3.select(this).attr('y1', 0)
 		    })
 		.on("mouseout", function(d) {       
-		    d3.select(this).attr('y1', height+20)  
+		    d3.select(this).attr('y1', height+44)  
 			});
 	specialdates.append("text")
 		.attr("x", function(d) { return xScale(parseDate('2011-07-20')) + 3; })
@@ -249,7 +249,7 @@ topline.append('line')
 	      .style("opacity", .9);
 	  div.html("Gastos por encima de 10.000€" )
 	      .style("left", (d3.event.pageX) + "px") 
-	      .style("top", (d3.event.pageY) - 60 + "px");  
+	      .style("top", (d3.event.pageY) - 35 + "px");  
 	  })
 	.on("mouseout", function(d) { 
 	  div.transition()
