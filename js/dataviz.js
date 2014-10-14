@@ -87,7 +87,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs'){
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .success class
-				svg.selectAll('svg .bar').style("visibility","hidden");
+				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -107,13 +107,13 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the viplist.tsv file
 			var cosa = d.cosa;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-sm thing'){
 				//first time
-				svg.selectAll('svg .bar').style("opacity",0.01);
-				svg.selectAll('svg .bar.'+ cosa).style("opacity",activeopacity);
+				svg.selectAll('svg .bar').style("visibility","hidden");
+				svg.selectAll('svg .bar.'+ cosa).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-sm thing"); //adds class success to button
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm thing'){
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm thing";}); //removes .success class
-				svg.selectAll('svg .bar').style("opacity",.4);
+				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
 			}
 		});	
 	legend.select('#ingles').html("El Corte Inglés");
