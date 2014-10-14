@@ -42,7 +42,7 @@ div.tooltip {
 }
 
 .bar:hover  {
-  fill: red;
+  fill: #000;
   opacity:1;
 }
 
@@ -67,7 +67,7 @@ line.topline:hover {
 }
 .specialdates text {
 	font-size:12px;
-	fill:#999;
+	fill:#444;
 }
 
 .negativo {
@@ -95,17 +95,21 @@ line.topline:hover {
 	fill:#FF9900;
 	background-color: #FF9900;
 }
-.joyerias, #joyerias {
-	fill:#FF00CC;
-	background-color: #FF00CC;
-}
 .viajes, #viajes, .easyjet, .klm, .air, .spanair, .iberia {
 	fill:#9900FF;
 	background-color: #9900FF;
+}
+.joyerias, #joyerias {
+	fill:#FF00CC;
+	background-color: #FF00CC;
 }
 .restaurantes, #restaurantes {
 	fill:#006699;
 	background-color: #006699;
 }
 
+.efectivo, #efectivo {
+	fill:#66FF66;
+	background-color: #66FF66;
+}
 
