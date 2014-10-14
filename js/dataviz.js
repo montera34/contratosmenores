@@ -11,7 +11,8 @@ var barwidth = 1.98; //width of the bars
 var margin = {top: 35, right: 20, bottom: 70, left: 65},
     width = 1300 - margin.left - margin.right,
     height = 550 - margin.top - margin.bottom;
-var topvalue = 10000;
+var	topvalue = 10000,
+		activeopacity = 0.8;
 
 var formatComma = d3.format(".0f");
 
@@ -68,7 +69,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("div")
-		.attr("class", function(d) { return "inactive btn btn-default btn-sm";})
+		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
 		.text(function(d) {  
 			if (d.entidad == '-') {
 					return d.people + ' '; }
@@ -78,15 +79,15 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 			})
 		.on('click',function(d) { //when click on name
 			var personflat = replacement(d.people); //removes spaces and . from person name;
-			if (d3.select(this).attr('class')==='inactive btn btn-default btn-sm'){
+			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
 				//first time
-				svg.selectAll('svg .bar').style("opacity",.03);
-				svg.selectAll('svg .bar.'+personflat).style("opacity",.8);
-				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-sm"); //adds class success to button
+				svg.selectAll('svg .bar').style("visibility","hidden");
+				svg.selectAll('svg .bar.'+personflat).style("opacity",activeopacity).style("visibility","visible");
+				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm'){
-				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm";}); //removes .success class
-				svg.selectAll('svg .bar').style("opacity",.4);
+			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs'){
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .success class
+				svg.selectAll('svg .bar').style("visibility","hidden");
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -106,8 +107,8 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the viplist.tsv file
 			var cosa = d.cosa;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-sm thing'){
 				//first time
-				svg.selectAll('svg .bar').style("opacity",.01);
-				svg.selectAll('svg .bar.'+ cosa).style("opacity",.7);
+				svg.selectAll('svg .bar').style("opacity",0.01);
+				svg.selectAll('svg .bar.'+ cosa).style("opacity",activeopacity);
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-sm thing"); //adds class success to button
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm thing'){
@@ -150,13 +151,13 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 
 	//Sets the bars with time scale
 	barstimescale.selectAll(".bar")
-      	.data(data)
-    	.enter().append("rect")
-    	.attr("fill", function(d) { return d.importe < 0 ? "#339900" : "#336600"; })
-	.attr("opacity",.5)
-	.attr("class", 
-		function(d) {
-			return replacement(d.quien) + " bar " + d.operacion.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + "  " + d.comercio.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+		.data(data)
+		.enter().append("rect")
+		.attr("fill", function(d) { return d.importe < 0 ? "#339900" : "#336600"; })
+		.style("opacity",0.4)
+		.attr("class",
+			function(d) {
+				return replacement(d.quien) + " bar " + d.operacion.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + "  " + d.comercio.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
@@ -167,14 +168,12 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 	.attr("height", function(d) { return Math.abs(yScale( d.importe > topvalue ? topvalue : d.importe) - yScale(0)); })
 	//.attr("height", function(d) { return Math.abs(yScale(d.importe < 0 ? 0 : d.importe) - yScale(0)); })
 	//The tooltips time scale
-		.on("mouseover", function(d) {      
-		    div.transition()        
-			.duration(200)      
-			.style("opacity", .9);      
-		    div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatComma(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.comercio + "<br/>"  + d.operacion)
-			.style("left", (d3.event.pageX + 1) + "px")
-			.style("top", (d3.event.pageY - 120) + "px");
-		    })
+		.on("mouseover", function(d) {
+				div.transition().style("opacity", 1);
+				div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatComma(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.comercio + "<br/>"  + d.operacion)
+					.style("left", (d3.event.pageX + 1) + "px")
+					.style("top", (d3.event.pageY - 120) + "px");
+			})
 		.on("mouseout", function(d) {
 		    div.transition()
 			.duration(500)

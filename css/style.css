@@ -72,6 +72,7 @@ line.topline:hover {
 
 .negativo {
 	display:none;
+	visibility:hidden;
 }
 
 .page-footer {
@@ -91,11 +92,11 @@ line.topline:hover {
 	fill:#0099FF;
 	background-color: #0099FF;
 }
-.hoteles, #hoteles, .hotel {
+.hoteles, #hoteles, .hotel, .paradores {
 	fill:#FF9900;
 	background-color: #FF9900;
 }
-.viajes, #viajes, .easyjet, .klm, .air, .spanair, .iberia {
+.viajes, #viajes, .easyjet, .klm, .air, .spanair, .iberia, .edreams {
 	fill:#9900FF;
 	background-color: #9900FF;
 }
