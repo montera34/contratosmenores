@@ -84,6 +84,17 @@ line.topline:hover {
  height:20px;
 }
 
+.persontable {
+	fill:black;
+	display:block;)
+}
+.vipname {
+	font-size:20px;
+}
+.description{
+	font-size:12px;
+}
+
 .cajero, #cajero {
 	fill: #66CC00;
 	background-color: #66CC00;
@@ -113,4 +124,3 @@ line.topline:hover {
 	fill:#66FF66;
 	background-color: #66FF66;
 }
-

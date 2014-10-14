@@ -58,6 +58,7 @@ var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '')
 
 //set top line
 var topline = svg.append('g').attr('class','topline');
+svg.append('g').attr('class','persontable');
 
 //set special dates
 var specialdates = svg.append('g').attr('class','specialdates').attr('id','specialdates');
@@ -70,13 +71,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 		.data(data)
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
-		.text(function(d) {  
-			if (d.entidad == '-') {
-					return d.people + ' '; }
-				else {
-					return d.people + " ("+ d.entidad+") "; 
-				}
-			})
+		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people + " ("+ d.entidad+") ";})
 		.on('click',function(d) { //when click on name
 			var personflat = replacement(d.people); //removes spaces and . from person name;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
@@ -84,8 +79,20 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar.'+personflat).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
+				svg.selectAll('.personatable text').remove(	);
+				svg.selectAll('.vipname').text("");
+				svg.selectAll('.description').text("");
+				if (d.entidad == '-') { //don't show  ( ) if the field entiad is empty
+						svg.select('.persontable').append('text').text(d.people).attr("class","vipname").attr("x", 40).attr("y", 40);
+				} else {
+						svg.select('.persontable').append('text').text(d.people + " ("+ d.entidad+")").attr("class","vipname").attr("x", 40 ).attr("y", 40);
+				}
+				svg.select('.persontable').append('text').text(d.description).attr("class","description").attr("x", 40 ).attr("y", 60);
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs'){
+				svg.selectAll('.vipname').text("");
+				svg.selectAll('.description').text("");
+				svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .success class
 				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
 			}
@@ -100,19 +107,24 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("div")
-		.attr("class", function(d) { return "inactive btn btn-default btn-sm thing";})
+		.attr("class", function(d) { return "inactive btn btn-default btn-xs thing";})
 		.attr("id",function(d) { return d.cosa;})
 		.text(function(d) { return d.cosa; })
 		.on('click',function(d) { //when click on name
 			var cosa = d.cosa;
-			if (d3.select(this).attr('class')==='inactive btn btn-default btn-sm thing'){
+			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs thing'){
 				//first time
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar.'+ cosa).style("opacity",activeopacity).style("visibility","visible");
-				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-sm thing"); //adds class success to button
+				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
+				svg.selectAll('.personatable text').remove(	);
+				svg.selectAll('.vipname').text("");
+				svg.select('.persontable').append('text').text(cosa).attr("class","vipname").attr("x", 40).attr("y", 40);
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-sm thing'){
-				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-sm thing";}); //removes .success class
+			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
+				svg.selectAll('.vipname').text("");
+				svg.selectAll('.personatable').remove(	);
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs thing";}); //removes .success class
 				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
 			}
 		});	
