@@ -1,5 +1,10 @@
 body {
   font: 10px sans-serif;
+  position: relative;
+}
+
+h1 {
+	font-size:28px !important;
 }
 
 path {
@@ -8,9 +13,11 @@ path {
   fill: none;
   cursor:pointer;
 }
-.container {
-    margin-left: 20px !important;
+
+.main-container {
+	margin-left: 20px !important;
 }
+
 
 div.tooltip {
   position: absolute;
@@ -76,7 +83,7 @@ line.topline:hover {
 }
 
 .page-footer {
-  margin-top:25px;	
+  margin-top:15px;	
 }
 
 .thing span {
@@ -123,4 +130,32 @@ line.topline:hover {
 .efectivo, #efectivo {
 	fill:#66FF66;
 	background-color: #66FF66;
+}
+
+.slide {
+	padding:40px 0 80px;
+	border-bottom:1px solid #777;
+}
+
+.slide small{
+	color:#000;
+}
+
+.slide a{
+	text-decoration:underline;
+	color:#000;
+}
+
+.slide h1, .slide h2 {
+	background: #00FF33;
+	padding:5px 0 5px 0;
+	line-height:40px;
+}
+
+.margin2 {
+  padding:150px 0 150px 0 !important;
+}
+
+mark {
+	background: none repeat scroll 0% 0% #CCFF66 !important;
 }
