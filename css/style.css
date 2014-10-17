@@ -159,3 +159,7 @@ line.topline:hover {
 mark {
 	background: none repeat scroll 0% 0% #CCFF66 !important;
 }
+
+#imagenes .row {
+	margin: 0 0 30px;
+}
