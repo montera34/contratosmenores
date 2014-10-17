@@ -8,7 +8,7 @@ Also some ideas come from https://github.com/erhardt/Attention-Plotter
 var barwidth = 1.98; //width of the bars
 
 //Prepare canvas size
-var margin = {top: 35, right: 20, bottom: 70, left: 65},
+var margin = {top: 15, right: 20, bottom: 70, left: 65},
     width = 1300 - margin.left - margin.right,
     height = 550 - margin.top - margin.bottom;
 var	topvalue = 10000,
@@ -101,7 +101,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 }); //end read viplist.tsv file
 
 //Legend de cosas
-d3.tsv("data/thinglist.tsv", function(error, data) {//reads the viplist.tsv file
+d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv file
 	var legend = d3.select("#legendcosas").attr("class", "legendcosas");
 	//legend.append("h5").style("font-weight","bold").text("Selecciona "); //legend title
 	legend.selectAll('div')
@@ -119,6 +119,7 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the viplist.tsv file
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
+				svg.selectAll('.description').text("");
 				svg.select('.persontable').append('text').text(cosa).attr("class","vipname").attr("x", 40).attr("y", 40);
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
@@ -214,14 +215,14 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		    d3.select(this).attr('y1', height+20)  
 			});
 	specialdates.append("text")
-		.attr("x", function(d) { return xScale(parseDate('2010-01-28')) + 3; })
+		.attr("x", function(d) { return xScale(parseDate('2010-01-28')) + 6; })
 		.attr("y", height+60)
 		.text("Nombramiento Rato como presidente de Caja de Madrid"); 
 	specialdates.append('line')
     .attr('y1', height+44)
     .attr('y2', height+60)
-    .attr('x1', function(d) { return xScale(parseDate('2010-01-28')); })
-    .attr('x2', function(d) { return xScale(parseDate('2010-01-28')); })
+    .attr('x1', function(d) { return xScale(parseDate('2010-01-28')) + 1; })
+    .attr('x2', function(d) { return xScale(parseDate('2010-01-28')) + 1; })
 		.attr('title','Nombramiento de Rato\ncomo Presidente de Caja de Madrid\n2010-01-28')
 		.on("mouseover", function(d) {      
 		  d3.select(this).attr('y1', 0)
