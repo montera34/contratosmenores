@@ -191,6 +191,18 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 			.style("opacity", 0);
 		});
 		
+	//Random button: posiciona las barras aleatoriamente en el eje vertical, manteniendo su posición horizontal por fecha
+	legendcosas.append("div").attr("class","inactive btn btn-default btn-xs pull-right")
+		.text("Posición vertical aleatoria")
+		.attr("title","Posiciona las barras que representan los gastos aleatoriamente, manteniendo la posición por fecha")
+		.on('click',function(d) {
+			svg.selectAll('svg .bar')
+			.attr("y",function(d) { return Math.random() * yScale(d.importe > topvalue ? topvalue : d.importe);});
+			svg.select('#topline').style("visibility","hidden");
+			d3.select(this).style("border","2px solid #000"); //adds class success to button
+		});
+	
+		
 	//Special dates
 	specialdates.append("text")
 		.attr("x", 5)
