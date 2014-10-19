@@ -57,15 +57,17 @@ var barstimescale = svg.append('g').attr('id','barstimescale');
 var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').toLowerCase();};
 
 //set top line
-var topline = svg.append('g').attr('class','topline');
+var topline = svg.append('g').attr('id','topline');
 svg.append('g').attr('class','persontable');
 
 //set special dates
 var specialdates = svg.append('g').attr('class','specialdates').attr('id','specialdates');
 
-//Legend
+//Legends
+var legend = d3.select("#legend").attr("class", "legend");
+var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
+
 d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
-	var legend = d3.select("#legend").attr("class", "legend");
 	//legend.append("h5").style("font-weight","bold").text("Selecciona "); //legend title
 	legend.selectAll('div')
 		.data(data)
@@ -102,9 +104,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 
 //Legend de cosas
 d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv file
-	var legend = d3.select("#legendcosas").attr("class", "legendcosas");
-	//legend.append("h5").style("font-weight","bold").text("Selecciona "); //legend title
-	legend.selectAll('div')
+	legendcosas.selectAll('div')
 		.data(data)
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs thing";})
@@ -129,10 +129,8 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv fi
 				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
 			}
 		});	
-	legend.select('#ingles').html("El Corte Inglés");
-	legend.select('#efectivo').html("Disposición en efectivo oficina");
-		//.append("span").style("background-color",function(d) { return d.color; })
-		//.text(".");
+	legendcosas.select('#ingles').html("El Corte Inglés");
+	legendcosas.select('#efectivo').html("Disposición en efectivo oficina");
 }); //end read thinglist.tsv file
 
 //Enters data.tsv and starts the graph-----------------------------------------
@@ -175,7 +173,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
 	.attr("width", barwidth+1)
-	.attr("y", function(d) { return yScale(Math.max(0, d.importe)); })
+	//.attr("y", function(d) { return yScale(Math.max(0, d.importe)); })
 	.attr("y", function(d) { return yScale(Math.max(0, d.importe > topvalue ? topvalue : d.importe)); })
 	//.attr("height", function(d) { return d.importe > topvalue ? yScale(topvalue) : yScale(Math.max(0, d.importe)); })
 	.attr("height", function(d) { return Math.abs(yScale( d.importe > topvalue ? topvalue : d.importe) - yScale(0)); })
