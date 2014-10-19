@@ -49,6 +49,9 @@ var xAxis = d3.svg.axis()
     .orient("bottom")
     .scale(xScale)
     .ticks(d3.time.years, 1);
+    
+//Random variable
+var randomvar = 0;
 
 //Bars time scale
 var barstimescale = svg.append('g').attr('id','barstimescale');
@@ -68,7 +71,6 @@ var legend = d3.select("#legend").attr("class", "legend");
 var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
 
 d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
-	//legend.append("h5").style("font-weight","bold").text("Selecciona "); //legend title
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -86,11 +88,18 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.description').text("");
 				if (d.entidad == '-') { //don't show  ( ) if the field entiad is empty
-						svg.select('.persontable').append('text').text(d.people).attr("class","vipname").attr("x", 40).attr("y", 40);
+						svg.select('.persontable').append('text').text(d.people).attr("class","vipname")
+						.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
+						.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 				} else {
-						svg.select('.persontable').append('text').text(d.people + " ("+ d.entidad+")").attr("class","vipname").attr("x", 40 ).attr("y", 40);
+						svg.select('.persontable').append('text').text(d.people + " ("+ d.entidad+")").attr("class","vipname")
+						.attr("x", function(d) { return randomvar == 0 ? 40 : 0;})
+						.attr("y", function(d) { return randomvar == 0 ? 40 : height + 40;});
 				}
-				svg.select('.persontable').append('text').text(d.description).attr("class","description").attr("x", 40 ).attr("y", 60);
+				svg.select('.persontable').append('text').text(d.description).attr("class","description")
+						.attr("x", function(d) { return randomvar == 0 ? 40 : 0;})
+						.attr("y", function(d) { return randomvar == 0 ? 60 : height + 60;});
+				
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs'){
 				svg.selectAll('.vipname').text("");
@@ -197,10 +206,22 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		.text("Posición vertical aleatoria")
 		.attr("title","Posiciona las barras que representan los gastos aleatoriamente, manteniendo la posición por fecha")
 		.on('click',function(d) {
-			svg.selectAll('svg .bar')
-			.attr("y",function(d) { return Math.random() * yScale(d.importe > topvalue ? topvalue : d.importe);});
-			svg.select('#topline').style("visibility","hidden");
-			d3.select(this).style("border","2px solid #000"); //adds class success to button
+			if (randomvar == 0) {
+				randomvar = 1;
+				svg.selectAll('svg .bar')
+				.attr("y",function(d) { return Math.random() * yScale(d.importe > topvalue ? topvalue : d.importe);});
+				svg.select('#topline').style("visibility","hidden");
+				d3.select(this).style("border","2px solid #000"); //adds class success to button
+				svg.selectAll('.vipname').attr("y", height + 40).attr("x", 0);
+				svg.selectAll('.description').attr("y", height + 60).attr("x", 0);
+				svg.select('#eventos_title').remove();
+			} else {
+				randomvar = 0;
+				svg.select('#topline').style("visibility","visible");
+				svg.selectAll('svg .bar')
+				.attr("y", function(d) { return yScale(Math.max(0, d.importe > topvalue ? topvalue : d.importe)); });
+				d3.select(this).style("border","1px solid #888"); //adds class success to button
+			}
 		});
 	
 		
@@ -208,7 +229,8 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 	specialdates.append("text")
 		.attr("x", 5)
 		.attr("y", height+40)
-		.text("Eventos relacionados");
+		.text("Eventos relacionados")
+		.attr("id","eventos_title");
 	specialdates.append("text")
 		.attr("x", function(d) { return xScale(parseDate('2009-05-22')) + 3; })
 		.attr("y", height+40)
