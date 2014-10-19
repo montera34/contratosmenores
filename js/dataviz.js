@@ -78,6 +78,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 			var personflat = replacement(d.people); //removes spaces and . from person name;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
 				//first time
+				legend.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar.'+personflat).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
