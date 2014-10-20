@@ -130,7 +130,9 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv fi
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.description').text("");
-				svg.select('.persontable').append('text').text(cosa).attr("class","vipname").attr("x", 40).attr("y", 40);
+				svg.select('.persontable').append('text').text(cosa).attr("class","vipname")
+					.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
+					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
 				svg.selectAll('.vipname').text("");
@@ -183,11 +185,8 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
 	.attr("width", barwidth+1)
-	//.attr("y", function(d) { return yScale(Math.max(0, d.importe)); })
 	.attr("y", function(d) { return yScale(Math.max(0, d.importe > topvalue ? topvalue : d.importe)); })
-	//.attr("height", function(d) { return d.importe > topvalue ? yScale(topvalue) : yScale(Math.max(0, d.importe)); })
 	.attr("height", function(d) { return Math.abs(yScale( d.importe > topvalue ? topvalue : d.importe) - yScale(0)); })
-	//.attr("height", function(d) { return Math.abs(yScale(d.importe < 0 ? 0 : d.importe) - yScale(0)); })
 	//The tooltips time scale
 		.on("mouseover", function(d) {
 				div.transition().style("opacity", 1);
@@ -220,6 +219,8 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 				svg.select('#topline').style("visibility","visible");
 				svg.selectAll('svg .bar')
 				.attr("y", function(d) { return yScale(Math.max(0, d.importe > topvalue ? topvalue : d.importe)); });
+				svg.selectAll('.vipname').attr("y", 40).attr("x", 40);
+				svg.selectAll('.description').attr("y", 60).attr("x", 40);
 				d3.select(this).style("border","1px solid #888"); //adds class success to button
 			}
 		});
