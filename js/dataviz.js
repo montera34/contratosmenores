@@ -11,7 +11,7 @@ var barwidth = 1.98; //width of the bars
 var margin = {top: 15, right: 20, bottom: 70, left: 65},
     width = 1300 - margin.left - margin.right,
     height = 550 - margin.top - margin.bottom;
-var	topvalue = 10000,
+var	topvalue = 62000,
 		activeopacity = 0.8;
 
 var formatComma = d3.format(".0f");
@@ -35,8 +35,8 @@ var svg = d3.select('#vis').append("svg")
 
 //Sets xScale
 // define the x scale (horizontal)
-var mindate = new Date(2003,3,1),
-    maxdate = new Date(2012,6,1);
+var mindate = new Date(2015,12,1),
+    maxdate = new Date(2016,2,1);
 var xScale = d3.time.scale()
     //.domain([mindate, maxdate])    // values between for month of january
     .range([0, width]);   // map these the the chart width = total width minus padding at both sides
@@ -48,7 +48,7 @@ var parseDate = d3.time.format("%Y-%m-%d").parse;
 var xAxis = d3.svg.axis()
     .orient("bottom")
     .scale(xScale)
-    .ticks(d3.time.years, 1);
+    .ticks(d3.time.months, 1);
     
 //Random variable
 var randomvar = 0;
@@ -57,7 +57,7 @@ var randomvar = 0;
 var barstimescale = svg.append('g').attr('id','barstimescale');
 
 //replaces spaces and . in viplist function(d) { return d.SaldoCalculado; }
-var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').toLowerCase();};
+var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').replace(/\,+/g, '').toLowerCase();};
 
 //set top line
 var topline = svg.append('g').attr('id','topline');
@@ -75,7 +75,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 		.data(data)
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
-		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people + " ("+ d.entidad+") ";})
+		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people + " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
 			var personflat = replacement(d.people); //removes spaces and . from person name;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
@@ -87,12 +87,12 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.description').text("");
-				if (d.entidad == '-') { //don't show  ( ) if the field entiad is empty
+				if (d.ncontratos == '-') { //don't show  ( ) if the field entiad is empty
 						svg.select('.persontable').append('text').text(d.people).attr("class","vipname")
 						.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
 						.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 				} else {
-						svg.select('.persontable').append('text').text(d.people + " ("+ d.entidad+")").attr("class","vipname")
+						svg.select('.persontable').append('text').text(d.people + " (contratos: " + d.ncontratos + ", importe: " + d.importe + "€)" ).attr("class","vipname")
 						.attr("x", function(d) { return randomvar == 0 ? 40 : 0;})
 						.attr("y", function(d) { return randomvar == 0 ? 40 : height + 40;});
 				}
@@ -176,11 +176,11 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 	barstimescale.selectAll(".bar")
 		.data(data)
 		.enter().append("rect")
-		.attr("fill", function(d) { return d.importe < 0 ? "#339900" : "#336600"; })
+		.attr("fill", function(d) { return d.importe < 0 ? "#339900" : "#666666"; })
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
-				return replacement(d.quien) + " bar " + d.operacion.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + "  " + d.comercio.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+				return replacement(d.quien) + " bar " + d.centro.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
@@ -190,7 +190,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 	//The tooltips time scale
 		.on("mouseover", function(d) {
 				div.transition().style("opacity", 1);
-				div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatComma(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.comercio + "<br/>"  + d.operacion)
+				div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatComma(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.centro + "<br/>"  + d.dni)
 					.style("left", (d3.event.pageX + 1) + "px")
 					.style("top", (d3.event.pageY - 120) + "px");
 			})

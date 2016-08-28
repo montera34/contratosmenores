@@ -1,13 +1,7 @@
 cosa	color
-compra
-cajero	#66CC00
-efectivo	#66FF66
-restaurantes	#006699
-gasolineras	#0099FF
-joyerias	#FF00CC
-hoteles	#FF9900
-viajes	#9900FF
-muebles
-ikea
-ingles
-marisqueria
+mantenimiento	#9900FF
+limpieza	#66CC00
+obras	#66FF66
+publicidad	#006699
+servicio	#0099FF
+suministro	#FF00CC

@@ -1,34 +1,29 @@
-people	entidad	description	img
-Pablo Abejas	-	Presidente de la Comisión de Control de Caja Madrid
-Miguel Ángel Abejón Resa	-	Miembro de la Comisión de Control de Caja Madrid
-José Luis Acero Benedicto	IU	Consejero nombrado a propuesta de IU
-José Acosta Cubero	PSOE	Consejero nombrado a propuesta del PSOE
-María Enedina Álvarez Gayol	PSOE	Consejera nombrada a propuesta del PSOE
-Matías Amat	-	Director general de Negocio de Caja Madrid
-Miguel Ángel Araujo	PP	Consejero nombrado a propuesta del PP
-José María Arteta Vico	PSOE	Consejero nombrado a propuesta del PSOE
-Juan Astorqui	-	Director de Comunicación de Caja Madrid
-Juan José Azcona Olondriz	-	Miembro de la Comisión de Control de Caja Madrid
-Francisco Baquero	CCOO	Consejero nombrado a propuesta de CC.OO.
-Pedro Bedia Pérez	CCOO	Consejero nombrado a propuesta de CC.OO.
-Rodolfo Benito Valenciano	CCOO	Consejero nombrado a propuesta de CC.OO.
-Luis Blasco Bosqued	-	Miembro de la Comisión de Control de Caja Madrid
-Miguel Blesa	-	Presidente de Caja Madrid entre 1996 y 2009	img/miguel-blesa.png
-Carmen Contreras	-	Directora gerente de Obra Social en Caja Madrid
-Rubén Cruz Uribe	IU	Consejero nombrado a propuesta de IU
-Arturo Fernández	CEIM	Consejero nombrado a propuesta de la patronal CEIM
-Ramón Ferraz Ricarte	-	Consejero ejecutivo
-Carlos Mª Martínez	-	Consejero ejecutivo
-Mercedes de la Merced	PP	Consejera nombrada a propuesta del PP
-Ricardo Morado Iglesias	-	Director de Organizacion de Caja Madrid
-José Antonio Moral Santín	IU	Consejero nombrado a propuesta de IU
-Mariano Pérez Claver	-	Consejero ejecutivo
-Rodrigo Rato	PP	Presidente de Caja Madrid y Bankia entre 2010 y 2012	img/rodrigo-rato.png
-Estanislao Rodríguez-Ponga	PP	Consejero nombrado a propuesta del PP
-Antonio Romero Lázaro	PSOE	Consejero nombrado a propuesta del PSOE
-Romero de Tejada	PP	Consejero nombrado a propuesta del PP
-Ildefonso Sánchez Barcoj	-	Director financiero en Caja Madrid
-Rafael Spottorno	-	Director de la Fundacion Caja Madrid
-Enrique de la Torre	-	Secretario del Consejo de Caja Madrid
-Carlos Vela	-	Responsable de Credito a Empresas de Caja Madrid
-Virgilio Zapatero	PSOE	Consejero nombrado a propuesta del PSOE
+people	ncontratos	importe
+SECOPSA SERVICIOS, S.A.        	91	1,137,874.79
+IMESAPI S.A.                   	17	416,325.13
+GRUPO BERTOLIN, S.A.U.         	8	310,336.68
+PAVASAL SA                     	6	303,392.36
+MOBIPARK SL                    	7	238,161.46
+LEVANTE SUMINISTROS DE OFICINA SL	12	215,988.00
+BECSA, S.A.U.                  	4	185,439.51
+SECOPSA SERVICIOS S.A.	9	181,808.43
+ETRALUX SA                     	9	179,847.67
+EL CORTE INGLES, S.A.          	18	176,665.94
+S.A. AGRICULTORES DE LA VEGA DE	6	173,850.15
+UNIVERSIDAD POLITECNICA VALENCI	11	146,485.67
+ART I CLAR SOC. RESPON. LIMITAD	21	133,856.41
+ELECNOR SA                     	11	123,791.34
+CONSTRUCCIONES PLAZA HERMANOS B	2	120,999.24
+FOMENTO DE CONSTRUCCIONES Y CON	2	120,949.35
+OCIDE CONSTRUCCION, S.A.       	3	119,973.88
+MESQUECONS, S.L.               	9	116,585.14
+TORRESCAMARA Y CIA DE OBRAS, S.	3	115,233.21
+FEDERICO DOMENECH, S.A.        	25	111,862.78
+RADIO POPULAR SA -COPE         	16	101,972.94
+PINAZO DECORACIONES, S.L.      	24	101,546.91
+ROVER ALCISA, S.A.             	3	100,000.00
+ENCUENTRO URBANO, S.L.         	31	96,526.55
+SA MPAL. ACTUACIONES URBANAS VC	8	90,789.29
+PUCHICOM, S.L.	2	90,502.33
+LUJAN SERVICIOS GLOBALES,S.L.  	2	89,629.40
+UNIPREX, SAU                   	22	87,554.42

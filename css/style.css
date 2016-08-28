@@ -102,11 +102,11 @@ line.topline:hover {
 	font-size:12px;
 }
 
-.cajero, #cajero {
+.limpieza, #limpieza {
 	fill: #66CC00;
 	background-color: #66CC00;
 }
-.gasolineras, #gasolineras {
+.servicio, #servicio {
 	fill:#0099FF;
 	background-color: #0099FF;
 }
@@ -114,20 +114,20 @@ line.topline:hover {
 	fill:#FF9900;
 	background-color: #FF9900;
 }
-.viajes, #viajes, .easyjet, .klm, .air, .spanair, .iberia, .edreams {
+.mantenimiento, #mantenimiento {
 	fill:#9900FF;
 	background-color: #9900FF;
 }
-.joyerias, #joyerias {
+.suministro, #suministro {
 	fill:#FF00CC;
 	background-color: #FF00CC;
 }
-.restaurantes, #restaurantes {
+.publicidad, #publicidad {
 	fill:#006699;
 	background-color: #006699;
 }
 
-.efectivo, #efectivo {
+.obras, #obras {
 	fill:#66FF66;
 	background-color: #66FF66;
 }
