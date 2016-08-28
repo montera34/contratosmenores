@@ -69,6 +69,7 @@ var specialdates = svg.append('g').attr('class','specialdates').attr('id','speci
 //Legends
 var legend = d3.select("#legend").attr("class", "legend");
 var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
+var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 
 d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
@@ -141,8 +142,39 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv fi
 				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
 			}
 		});	
-	legendcosas.select('#ingles').html("El Corte Inglés");
-	legendcosas.select('#efectivo').html("Disposición en efectivo oficina");
+}); //end read thinglist.tsv file
+
+//Legend de centros presupuestarios
+d3.tsv("data/centroslist.tsv", function(error, data) {//reads the thinglist.tsv file
+	legendcentros.selectAll('div')
+		.data(data)
+		.enter().append("div")
+		.attr("class", function(d) { return "inactive btn btn-default btn-xs thing";})
+		.attr("id",function(d) { return d.centro;})
+		.text(function(d) { return d.centro; })
+		.on('click',function(d) { //when click on name
+			var centro = d.centro;
+			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs thing'){
+				//first time
+				svg.selectAll('svg .bar').style("visibility","hidden");
+				svg.selectAll('svg .bar.'+ centro).style("opacity",activeopacity).style("visibility","visible");
+				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
+				svg.selectAll('.personatable text').remove(	);
+				svg.selectAll('.vipname').text("");
+				svg.selectAll('.description').text("");
+				svg.select('.persontable').append('text').text(cosa).attr("class","vipname")
+					.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
+					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
+			//second time
+			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
+				svg.selectAll('.vipname').text("");
+				svg.selectAll('.personatable').remove(	);
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs thing";}); //removes .success class
+				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
+			}
+		});
+	legendcentros.select('#publicitat').html("Of. Publicitat Anuncis Oficials");
+	legendcentros.select('#tecnologies').html("S. Tecnologies de la informacio y la comunicacio"); //TODO COntinuar con otros centros presupuestarios
 }); //end read thinglist.tsv file
 
 //Enters data.tsv and starts the graph-----------------------------------------
@@ -180,7 +212,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
-				return replacement(d.quien) + " bar " + d.centro.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '') + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
@@ -201,7 +233,7 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		});
 		
 	//Random button: posiciona las barras aleatoriamente en el eje vertical, manteniendo su posición horizontal por fecha
-	legendcosas.append("div").attr("class","inactive btn btn-default btn-xs pull-right")
+	legendcentros.append("div").attr("class","inactive btn btn-default btn-xs pull-right")
 		.text("Posición vertical aleatoria")
 		.attr("title","Posiciona las barras que representan los gastos aleatoriamente, manteniendo la posición por fecha")
 		.on('click',function(d) {
@@ -224,7 +256,6 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 				d3.select(this).style("border","1px solid #888"); //adds class success to button
 			}
 		});
-	
 		
 	//Special dates
 	specialdates.append("text")
