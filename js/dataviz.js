@@ -88,7 +88,7 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.description').text("");
-				if (d.ncontratos == '-') { //don't show  ( ) if the field entiad is empty
+				if (d.ncontratos == '-') { //don't show  ( ) if the field entidad is empty
 						svg.select('.persontable').append('text').text(d.people).attr("class","vipname")
 						.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
 						.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
@@ -125,13 +125,14 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv fi
 			var cosa = d.cosa;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs thing'){
 				//first time
+				legendcosas.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar.'+ cosa).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.description').text("");
-				svg.select('.persontable').append('text').text(cosa).attr("class","vipname")
+				svg.select('.persontable').append('text').text(d.cosa).attr("class","vipname")
 					.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
 					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			//second time
@@ -149,32 +150,33 @@ d3.tsv("data/centroslist.tsv", function(error, data) {//reads the thinglist.tsv 
 	legendcentros.selectAll('div')
 		.data(data)
 		.enter().append("div")
-		.attr("class", function(d) { return "inactive btn btn-default btn-xs thing";})
+		.attr("class", function(d) { return "inactive btn btn-default btn-xs centro";})
 		.attr("id",function(d) { return d.centro;})
-		.text(function(d) { return d.centro; })
+		.text(function(d) { return d.descripEs; })
 		.on('click',function(d) { //when click on name
 			var centro = d.centro;
-			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs thing'){
+			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
 				//first time
+				legendcentros.select('.btn-success').attr('class','inactive btn btn-default btn-xs centro');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar.'+ centro).style("opacity",activeopacity).style("visibility","visible");
-				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
+				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.description').text("");
-				svg.select('.persontable').append('text').text(cosa).attr("class","vipname")
+				svg.select('.persontable').append('text').text(d.descripEs).attr("class","vipname")
 					.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
 					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
+			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs centro'){
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.personatable').remove(	);
-				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs thing";}); //removes .success class
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs centro";}); //removes .success class
 				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
 			}
 		});
-	legendcentros.select('#publicitat').html("Of. Publicitat Anuncis Oficials");
-	legendcentros.select('#tecnologies').html("S. Tecnologies de la informacio y la comunicacio"); //TODO COntinuar con otros centros presupuestarios
+//	legendcentros.select('#publicitat').html("Of. Publicitat Anuncis Oficials");
+//	legendcentros.select('#tecnologies').html("S. Tecnologies de la informacio y la comunicacio"); //TODO COntinuar con otros centros presupuestarios
 }); //end read thinglist.tsv file
 
 //Enters data.tsv and starts the graph-----------------------------------------
