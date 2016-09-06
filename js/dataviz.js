@@ -152,7 +152,7 @@ d3.tsv("data/centroslist.tsv", function(error, data) {//reads the thinglist.tsv 
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs centro";})
 		.attr("id",function(d) { return d.centro;})
-		.text(function(d) { return d.descripEs; })
+		.text(function(d) { return d.descripCat; }) //Elige el idioma de la leyenda
 		.on('click',function(d) { //when click on name
 			var centro = d.centro;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
