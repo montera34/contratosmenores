@@ -33,6 +33,18 @@ div.tooltip {
 	margin: 3px;
 }
 
+.btn-success, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {
+  color: #000 !important;
+  background-color: #aaa !important;
+  border-color: #aaa !important;
+	font-weight:bold !important;
+}
+
+.centro {
+    background-color: #eee !important;
+    border-color: #eee;
+}
+
 .axis path,
 .axis line {
   fill: none;
