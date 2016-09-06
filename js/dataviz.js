@@ -125,7 +125,7 @@ d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv fi
 			var cosa = d.cosa;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs thing'){
 				//first time
-				legendcosas.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
+				legendcosas.select('.btn-success').attr('class','inactive btn btn-default btn-xs thing');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar.'+ cosa).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
