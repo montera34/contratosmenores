@@ -37,9 +37,9 @@ Para añadir nuevas funcionalidades tendremos que modificar este archivo:
 ### ¿Cómo funcionan las leyendas?
 
 Buscan en cada una de las columnas de cada contrato de `/data/data.tsv` la palabra que contiene la leyenda. 
-Se puede cambiar como se indica en esta línea de código de `/js/dataviz.js`:
-  `legendcentros.select('#publicitat').html("Of. Publicitat Anuncis Oficials");`
-donde se sustituye "publicitat" por "Of. Publicitat Anuncis Oficials" en la leyenda.
+
+En la tabla `/data/centroslist.tsv` se describe como debe mostrarse el título del centro en castellano (descripEs) y en catalán (descripCat):
+A la hora de generar la leyenda se llama a descripEs o descripCat según convenga (https://github.com/numeroteca/valenciadata/blob/master/js/dataviz.js#L155).
 
 ## Colores
 
