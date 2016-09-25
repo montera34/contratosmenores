@@ -316,11 +316,28 @@ topline.append('line')
     .attr('x1', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
     .attr('x2', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
 		.attr('title','Elecciones municipales 24 mayo 2015\n2015-05-28')
-		.on("mouseover", function(d) {      
+		.on("mouseover", function(d) {
 		  d3.select(this).attr('y1', 0)
 		    })
-		.on("mouseout", function(d) {       
-		    d3.select(this).attr('y1', height+44)  
+		.on("mouseout", function(d) {
+		    d3.select(this).attr('y1', height+44)
+			});
+
+	specialdates.append("text")
+		.attr("x", function(d) { return xScale(parseDate('2015-06-14')) + 6; })
+		.attr("y", height+35)
+		.text("Toma de posesión nuevo alcalde.");
+	specialdates.append('line')
+    .attr('y1', height+25)
+    .attr('y2', height+41)
+    .attr('x1', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
+    .attr('x2', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
+		.attr('title','Toma de posesión nuevo alcalde.')
+		.on("mouseover", function(d) {
+		  d3.select(this).attr('y1', 0)
+		    })
+		.on("mouseout", function(d) {
+		    d3.select(this).attr('y1', height+44)
 			});
 
 });
