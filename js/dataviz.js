@@ -206,6 +206,46 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		.attr("font-size","10")
 		.text("Euros");
 
+//Top line
+topline.append('line')
+	.attr('y1', yScale(50000))
+	.attr('y2', yScale(50000))
+	.attr('x1', 0)
+	.attr('x2', width)
+	.attr("class", "topline")
+	.on("mouseover", function(d) {
+	  div.transition()
+	      .duration(200)
+	      .style("opacity", .9);
+	  div.html("Límite contratos de obras 50.000€" )
+	      .style("left", (d3.event.pageX) + "px")
+	      .style("top", (d3.event.pageY) - 35 + "px");
+	  })
+	.on("mouseout", function(d) {
+	  div.transition()
+	      .duration(500)
+	      .style("opacity", 0);
+	});
+topline.append('line')
+	.attr('y1', yScale(18000))
+	.attr('y2', yScale(18000))
+	.attr('x1', 0)
+	.attr('x2', width)
+	.attr("class", "topline")
+	.on("mouseover", function(d) {
+	  div.transition()
+	      .duration(200)
+	      .style("opacity", .9);
+	  div.html("Límite contratos otros contratos menores 18.000€" )
+	      .style("left", (d3.event.pageX) + "px")
+	      .style("top", (d3.event.pageY) - 35 + "px");
+	  })
+	.on("mouseout", function(d) {
+	  div.transition()
+	      .duration(500)
+	      .style("opacity", 0);
+	});
+
 	//Sets the bars with time scale
 	barstimescale.selectAll(".bar")
 		.data(data)
@@ -250,9 +290,9 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 				svg.select('#eventos_title').remove();
 			} else {
 				randomvar = 0;
-				svg.select('#topline').style("visibility","visible");
 				svg.selectAll('svg .bar')
 				.attr("y", function(d) { return yScale(Math.max(0, d.importe > topvalue ? topvalue : d.importe)); });
+				svg.select('#topline').style("visibility","visible");
 				svg.selectAll('.vipname').attr("y", 40).attr("x", 40);
 				svg.selectAll('.description').attr("y", 60).attr("x", 40);
 				d3.select(this).style("border","1px solid #888"); //adds class success to button
@@ -313,28 +353,8 @@ d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 		.on("mouseout", function(d) {       
 		    d3.select(this).attr('y1', height+20)  
 			});
-});
 
-//Top line
-topline.append('line')
-	.attr('y1', 4)
-	.attr('y2', 4)
-	.attr('x1', 0)
-	.attr('x2', 1400)
-	.attr("class", "topline")
-	.on("mouseover", function(d) {
-	  div.transition()
-	      .duration(200)
-	      .style("opacity", .9);
-	  div.html("Gastos por encima de 10.000€" )
-	      .style("left", (d3.event.pageX) + "px") 
-	      .style("top", (d3.event.pageY) - 35 + "px");  
-	  })
-	.on("mouseout", function(d) { 
-	  div.transition()
-	      .duration(500)
-	      .style("opacity", 0);
-	});
+});
 
 function type(d) {
   return d;

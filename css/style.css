@@ -67,9 +67,10 @@ div.tooltip {
 
 line.topline  {
   fill: none;
-  stroke: #FFF;
+  stroke: #ccc;
   shape-rendering: crispEdges;
-  stroke-width:4;
+  stroke-width:1;
+  opacity:0.5;
 }
 
 line.topline:hover {
