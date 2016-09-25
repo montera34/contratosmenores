@@ -236,7 +236,7 @@ topline.append('line')
 	  div.transition()
 	      .duration(200)
 	      .style("opacity", .9);
-	  div.html("Límite contratos otros contratos menores 18.000€" )
+	  div.html("Límite otros contratos menores 18.000€" )
 	      .style("left", (d3.event.pageX) + "px")
 	      .style("top", (d3.event.pageY) - 35 + "px");
 	  })
@@ -305,53 +305,22 @@ topline.append('line')
 		.attr("y", height+40)
 		.text("Eventos relacionados")
 		.attr("id","eventos_title");
+
 	specialdates.append("text")
-		.attr("x", function(d) { return xScale(parseDate('2009-05-22')) + 3; })
-		.attr("y", height+40)
-		.text("Lanzamiento de preferentes de Caja de Madrid"); 
-	specialdates.append('line')
-    .attr('y1', height+24)
-    .attr('y2', height+40)
-    .attr('x1', function(d) { return xScale(parseDate('2009-05-22')); })
-    .attr('x2', function(d) { return xScale(parseDate('2009-05-22')); })
-		.attr('title','Lanzamiento de preferentes de Caja de Madrid\n2009-05-22')
-		.on("mouseover", function(d) {      
-		  d3.select(this).attr('y1', 0)
-		    })
-		.on("mouseout", function(d) {       
-		    d3.select(this).attr('y1', height+20)  
-			});
-	specialdates.append("text")
-		.attr("x", function(d) { return xScale(parseDate('2010-01-28')) + 6; })
-		.attr("y", height+60)
-		.text("Nombramiento Rato como presidente de Caja de Madrid"); 
+		.attr("x", function(d) { return xScale(parseDate('2015-05-25')) + 6; })
+		.attr("y", height+55)
+		.text("Elecciones municipales 24 mayo 2015.");
 	specialdates.append('line')
     .attr('y1', height+44)
     .attr('y2', height+60)
-    .attr('x1', function(d) { return xScale(parseDate('2010-01-28')) + 1; })
-    .attr('x2', function(d) { return xScale(parseDate('2010-01-28')) + 1; })
-		.attr('title','Nombramiento de Rato\ncomo Presidente de Caja de Madrid\n2010-01-28')
+    .attr('x1', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
+    .attr('x2', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
+		.attr('title','Elecciones municipales 24 mayo 2015\n2015-05-28')
 		.on("mouseover", function(d) {      
 		  d3.select(this).attr('y1', 0)
 		    })
 		.on("mouseout", function(d) {       
 		    d3.select(this).attr('y1', height+44)  
-			});
-	specialdates.append("text")
-		.attr("x", function(d) { return xScale(parseDate('2011-07-20')) + 3; })
-		.attr("y", height+40)
-		.text("Salida a bolsa Bankia"); 
-	specialdates.append('line')
-    .attr('y1', height+24)
-    .attr('y2', height+40)
-    .attr('x1', function(d) { return xScale(parseDate('2011-07-20')); })
-    .attr('x2', function(d) { return xScale(parseDate('2011-07-20')); })
-		.attr('title','Salida a bolsa de Bankia\n2011-07-20')
-		.on("mouseover", function(d) {      
-		  d3.select(this).attr('y1', 0)
-		    })
-		.on("mouseout", function(d) {       
-		    d3.select(this).attr('y1', height+20)  
 			});
 
 });
