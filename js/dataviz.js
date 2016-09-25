@@ -275,7 +275,7 @@ topline.append('line')
 		});
 		
 	//Random button: posiciona las barras aleatoriamente en el eje vertical, manteniendo su posición horizontal por fecha
-	legendcentros.append("div").attr("class","inactive btn btn-default btn-xs pull-right")
+	legendcosas.append("div").attr("class","inactive btn btn-default btn-xs pull-right")
 		.text("Posición vertical aleatoria")
 		.attr("title","Posiciona las barras que representan los gastos aleatoriamente, manteniendo la posición por fecha")
 		.on('click',function(d) {
