@@ -373,17 +373,17 @@ topline.append('line')
     window.onresize = _.debounce(resize, 300);
 
     function resize() {
+		// Update width and scales
 		width = vis.node().clientWidth - margin.left - margin.right;
 
 		xScale.range([0, width])
 		yScale.range([height, 0]);
 
+		// Change the svg width
 		d3.selectAll("#vis svg")
             .attr("width", width + margin.left + margin.right);
-
-		// Update axis
-        //d3.select("y.axis").call(yAxis);
         
+		// Call the x axis
         d3.select(".x.axis")
             .call(xAxis);
         
@@ -394,7 +394,7 @@ topline.append('line')
 			.attr("y", function(d) { return yScale(Math.max(0, d.importe > topvalue ? topvalue : d.importe)); })
 			.attr("height", function(d) { return Math.abs(yScale( d.importe > topvalue ? topvalue : d.importe) - yScale(0)); });
 		
-		// Update legend
+		// Update legend and lines
 		specialdates.select(".annotation-related")
 			.attr("x", 5)
 			.attr("y", height+40);
