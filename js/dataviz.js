@@ -273,7 +273,7 @@ topline.append('line')
 	barstimescale.selectAll(".bar")
 		.data(data)
 		.enter().append("rect")
-		.attr("fill", function(d) { return d.importe < 0 ? "#339900" : "#666666"; })
+		.attr("fill", "#666666")
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
