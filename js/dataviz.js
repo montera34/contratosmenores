@@ -5,21 +5,42 @@ Tooltip based on http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.htm
 Also some ideas come from https://github.com/erhardt/Attention-Plotter
 */
 
+// D3 locale
+var es_ES = {
+    "decimal": ",",
+    "thousands": ".",
+    "grouping": [3],
+    "currency": ["€", ""],
+    "dateTime": "%a %b %e %X %Y",
+    "date": "%d/%m/%Y",
+    "time": "%H:%M:%S",
+    "periods": ["AM", "PM"],
+    "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+    "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+}
+
+var vis = d3.select("#vis"),
+	isMobile = innerWidth < 768;
+
 var barwidth = 1.98; //width of the bars
 
 //Prepare canvas size
 var margin = {top: 15, right: 20, bottom: 70, left: 65},
-    width = 1300 - margin.left - margin.right,
-    height = 550 - margin.top - margin.bottom;
-var	topvalue = 62000,
-		activeopacity = 0.8;
+    width = vis.node().clientWidth - margin.left - margin.right,
+    height = (isMobile ? 400 : 550) - margin.top - margin.bottom;
 
-var formatComma = d3.format(".0f");
+var	topvalue = 62000,
+	activeopacity = 0.8;
+
+var ES = d3.locale(es_ES),
+	formatThousand = ES.numberFormat("n");
 
 //Sets yScale
 var yValue = function(d) { return d.SaldoCalculado; }, // data -> value
     yScale = d3.scale.linear().range([height, 0]), // fuction that converts the data values into display values: value -> display
-    yAxis =  d3.svg.axis().scale(yScale).orient("left").tickFormat(formatComma);
+    yAxis =  d3.svg.axis().scale(yScale).orient("left").tickFormat(formatThousand).ticks(isMobile ? 5 : 10)
 
 //Adds the div that is used for the tooltip
 var div = d3.select("body").append("div")   
@@ -37,6 +58,7 @@ var svg = d3.select('#vis').append("svg")
 // define the x scale (horizontal)
 var mindate = new Date(2015,12,1),
     maxdate = new Date(2016,2,1);
+
 var xScale = d3.time.scale()
     //.domain([mindate, maxdate])    // values between for month of january
     .range([0, width]);   // map these the the chart width = total width minus padding at both sides
@@ -48,7 +70,8 @@ var parseDate = d3.time.format("%Y-%m-%d").parse;
 var xAxis = d3.svg.axis()
     .orient("bottom")
     .scale(xScale)
-    .ticks(d3.time.months, 1);
+	.tickFormat(isMobile ? ES.timeFormat("%b") : ES.timeFormat("%B"))
+    .ticks(isMobile ? 4 : 8);
     
 //Random variable
 var randomvar = 0;
@@ -264,7 +287,7 @@ topline.append('line')
 	//The tooltips time scale
 		.on("mouseover", function(d) {
 				div.transition().style("opacity", 1);
-				div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatComma(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.centro + "<br/>"  + d.dni)
+				div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatThousand(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.centro + "<br/>"  + d.dni)
 					.style("left", (d3.event.pageX + 1) + "px")
 					.style("top", (d3.event.pageY - 120) + "px");
 			})
@@ -302,20 +325,23 @@ topline.append('line')
 		
 	//Special dates
 	specialdates.append("text")
+		.attr("class", "annotation-related")
 		.attr("x", 5)
 		.attr("y", height+40)
 		.text("Eventos relacionados")
 		.attr("id","eventos_title");
 
 	specialdates.append("text")
+		.attr("class", "annotation-elections")
 		.attr("x", function(d) { return xScale(parseDate('2015-05-25')) + 6; })
 		.attr("y", height+55)
 		.text("Elecciones municipales 24 mayo 2015.");
 	specialdates.append('line')
-    .attr('y1', height+44)
-    .attr('y2', height+60)
-    .attr('x1', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
-    .attr('x2', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
+		.attr("class", "annotation-elections-line")
+		.attr('y1', height+44)
+		.attr('y2', height+60)
+		.attr('x1', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
+		.attr('x2', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
 		.attr('title','Elecciones municipales 24 mayo 2015\n2015-05-28')
 		.on("mouseover", function(d) {
 		  d3.select(this).attr('y1', 0)
@@ -325,14 +351,17 @@ topline.append('line')
 			});
 
 	specialdates.append("text")
+		.attr("class", "annotation-major")
 		.attr("x", function(d) { return xScale(parseDate('2015-06-14')) + 6; })
 		.attr("y", height+35)
 		.text("Toma de posesión nuevo alcalde.");
+
 	specialdates.append('line')
-    .attr('y1', height+25)
-    .attr('y2', height+41)
-    .attr('x1', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
-    .attr('x2', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
+		.attr("class", "annotation-major-line")
+		.attr('y1', height+25)
+		.attr('y2', height+41)
+		.attr('x1', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
+		.attr('x2', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
 		.attr('title','Toma de posesión nuevo alcalde.')
 		.on("mouseover", function(d) {
 		  d3.select(this).attr('y1', 0)
@@ -340,7 +369,64 @@ topline.append('line')
 		.on("mouseout", function(d) {
 		    d3.select(this).attr('y1', height+44)
 			});
+	
+	// Debounce the resize with lodash
+	// https://css-tricks.com/the-difference-between-throttling-and-debouncing/
+    window.onresize = _.debounce(resize, 300);
 
+    function resize() {
+		// Update width and scales
+		width = vis.node().clientWidth - margin.left - margin.right;
+
+		xScale.range([0, width])
+		yScale.range([height, 0]);
+
+		// Change the svg width
+		d3.selectAll("#vis svg")
+            .attr("width", width + margin.left + margin.right);
+        
+		// Call the x axis
+        d3.select(".x.axis")
+            .call(xAxis);
+        
+        // Update bars
+		barstimescale.selectAll(".bar")
+			.attr("x", function(d) { return xScale(d.date); })
+			.attr("width", barwidth+1)
+			.attr("y", function(d) { return yScale(Math.max(0, d.importe > topvalue ? topvalue : d.importe)); })
+			.attr("height", function(d) { return Math.abs(yScale( d.importe > topvalue ? topvalue : d.importe) - yScale(0)); });
+		
+		// Update legend and lines
+		specialdates.select(".annotation-related")
+			.attr("x", 5)
+			.attr("y", height+40);
+
+		specialdates.select(".annotation-related-line")
+		    .attr('y1', height+44)
+    		.attr('y2', height+60)
+			.attr("x", function(d) { return xScale(parseDate('2015-05-25')) + 6; })
+			.attr("y", height+55);
+
+		specialdates.select(".annotation-elections")
+			.attr("x", function(d) { return xScale(parseDate('2015-05-25')) + 6; })
+			.attr("y", height+55);
+		
+		specialdates.select(".annotation-elections-line")
+		    .attr('y1', height+44)
+    		.attr('y2', height+60)
+    		.attr('x1', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
+    		.attr('x2', function(d) { return xScale(parseDate('2015-05-24')) + 1; });
+
+		specialdates.select(".annotation-major")
+			.attr("x", function(d) { return xScale(parseDate('2015-06-14')) + 6; })
+			.attr("y", height+35);
+		
+		specialdates.select(".annotation-major-line")
+			.attr('y1', height+25)
+			.attr('y2', height+41)
+			.attr('x1', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
+			.attr('x2', function(d) { return xScale(parseDate('2015-06-13')) + 1; });
+	}
 });
 
 function type(d) {
