@@ -369,7 +369,9 @@ topline.append('line')
 		.on("mouseout", function(d) {
 		    d3.select(this).attr('y1', height+44)
 			});
-
+	
+	// Debounce the resize with lodash
+	// https://css-tricks.com/the-difference-between-throttling-and-debouncing/
     window.onresize = _.debounce(resize, 300);
 
     function resize() {
