@@ -80,7 +80,7 @@ var randomvar = 0;
 var barstimescale = svg.append('g').attr('id','barstimescale');
 
 //replaces spaces and . in viplist function(d) { return d.SaldoCalculado; }
-var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').replace(/\,+/g, '').toLowerCase();};
+var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').replace(/\,+/g, '').replace(/[{()}]/g, '').toLowerCase();};
 
 //set top line
 var topline = svg.append('g').attr('id','topline');
