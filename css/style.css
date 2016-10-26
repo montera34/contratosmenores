@@ -127,7 +127,7 @@ line.topline:hover {
 	fill:#FF9900;
 	background-color: #FF9900;
 }
-.mantenimiento, #mantenimiento {
+.mantenimiento, #mantenimiento, .vacunas #vacunas, .vacuna #vacuna {
 	fill:#9900FF;
 	background-color: #9900FF;
 }
