@@ -99,14 +99,14 @@ d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 		.data(data)
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
-		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people + " ("+ d.ncontratos +") ";})
+		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people +  " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
-			var personflat = replacement(d.people); //removes spaces and . from person name;
+			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
 				//first time
 				legend.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar.'+personflat).style("opacity",activeopacity).style("visibility","visible");
+				svg.selectAll('svg .bar.'+ dni).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
@@ -277,7 +277,7 @@ topline.append('line')
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
-				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '') + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '') + "  " + d.dni.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
