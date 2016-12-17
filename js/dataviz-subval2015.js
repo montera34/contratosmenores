@@ -137,7 +137,7 @@ d3.tsv("data/viplist_subval2015.tsv", function(error, data) {//reads the viplist
 }); //end read viplist.tsv file
 
 //Legend de cosas
-d3.tsv("data/thinglist__subval2015.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/thinglist_subval2015.tsv", function(error, data) {//reads the thinglist.tsv file
 	legendcosas.selectAll('div')
 		.data(data)
 		.enter().append("div")
