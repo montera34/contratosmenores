@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+	<title>Contratos menores Ayuntamineto de Valencia 2015</title>
+	<meta http-equiv="content-type" content="text/html"/>
+	<meta name="description" content="archiving thoughts and images" />
+	<meta charset="utf-8">
+	<!-- generic meta -->
+	<meta content="numeroteca" name="author" />
+	<meta name="title" content="..." />
+	<meta content="..." />
+	<meta content="..." name="keywords" />
+	<!-- facebook meta 	-->
+	<meta property="og:title" content="Contratos menores Ayuntamiento de Valencia 2015" />
+	<meta property="og:type" content="article" />
+	<meta property="og:description" content="Gráfico para explicar cómo y en qué se reparten los contratos menores de un Ayuntamiento." />
+	<meta content="transparencia, ayuntamiento, contratos menores" />
+	<meta property="og:url" content="http://numeroteca.org/contratosmenores" /> 
+	<!-- twitter meta -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@numeroteca">
+	<meta name="twitter:title" content="Contratos menores Ayuntamiento de Valencia 2015" />
+	<meta name="twitter:description" content="Gráfico para explicar cómo y en qué se reparten los contratos menores de un Ayuntamiento." />
+	<meta name="twitter:creator" content="@numeroteca">
+	<meta name="twitter:image:src" content="http://numeroteca.org/contratosmenores/img/contratos-menores-ayuntamiento-valencia-2015.png" />
+	<meta property="twitter:account_id" content="1494951285" />
+	
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/libs/bootstrap.min.css" />
+</head>
+<body>
+<div id="fb-root"></div>
+	<div class="container main-container">
+		<div class="share pull-right">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://numeroteca.org/contratosmenores" data-text="Visualización de ontratos menores" data-via="numeroteca" data-lang="es">Twittear</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		</div>
+		<h1><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Visualizando contratos de la administraci&oacute;n</h1>
+		<a class="btn btn-info pull-right" href="https://github.com/numeroteca/contratosmenores" role="button">Colabora <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
+		<div class="row">
+			<ul class="nav nav-tabs">
+				<li role="presentation" class="active"><a href="index.html">Contratos menores Valencia 2015</a></li>
+				<li role="presentation"><a href="subvenciones-valencia-2015.html">Subvenciones Valencia 2015</a></li>
+				<li role="presentation"><a href="index_madrid-sanidad-2015.html">Sanidad Comunidad de Madrid 2015</a></li>
+				<li role="presentation"><a href="paracuellos-2014.html">Contratos menores Paracuellos 2014</a></li>
+			</ul>
+		</div>
+		<h2>Contratos menores | Ayuntamiento de Valencia 2015</h2>
+		<div id="description">
+			<p>Así se reparten los 14.456.814,33€ públicos en contratos menores del Ayuntamiento de Valencia.</p>
+			<p>Datos: <a href="http://www.valencia.es/ayuntamiento/ayuntamiento.nsf/vDocumentosTituloAux/92DF5FDD503902FEC1257F030037745B?OpenDocument&bdOrigen=ayuntamiento%2Fayuntamiento.nsf&idapoyo=&lang=1&nivel=6">Descargados de Ayuntamiento de Valencia</a>.</p>
+			<p>Se listan las 27 primeras empresas (de 957) con mayor importe contratado en 2015 (seg&uacute;n <a href="https://twitter.com/enrikuspf/status/768139411955605508">@enrikuspf</a>). Datos limpiados con <a href="http://openrefine.org/">OpenRefine</a>.</p>
+		</div>
+		<div id="legend">Contratos por suministrador: </div><small>
+		<small><div id="legendcentros">Centros de gasto que emite contrato: </div></small>
+		<div id="legendcosas">Descripci&oacute;n del contrato: </div></small>
+		<div id="vis"></div>
+		<div class="page-footer">
+			<p>Visualizaci&oacute;n realizada por <a href="http://twitter.com/numeroteca">@numeroteca</a>. Colaboran: <a href="https://twitter.com/elctrodnd21">@elctrodnd21</a> +  <a href="https://twitter.com/martgnz">@martgnz</a> | <a href="http://numeroteca.org">numeroteca.org</a>.<br>
+			Puedes contribuir al proyecto en <a href="https://github.com/numeroteca/contratosmenores">github.com/numeroteca/contratosmenores</a></p>
+			<p>C&oacute;digo basado en la visualizaci&oacute;n de los gastos de las "tarjetas black" de Caja Madrid/Bankia disponible en <a href="https://github.com/numeroteca/tarjetasblack">https://github.com/numeroteca/tarjetasblack</a>.
+			</p>
+		</div>
+	</div>
+</div>	
+<script src="js/d3.v3.min.js"></script>
+<script src="js/lodash.js"></script>
+<script src="js/dataviz.js"></script>
+<!-- Simple Google Analytics Begin -->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount','UA-26717728-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!-- Simple Google Analytics End -->
+<!-- *** WP-Piwik - see http://wordpress.org/extend/plugins/wp-piwik/ ******** -->
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://stats.montera34.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+    g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+</body>
+</html>
