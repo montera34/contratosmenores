@@ -1,18 +1,18 @@
 centro	descripEs	descripCat
-S.Empleo	Servicio de Empleo y Emprendeduría	S.Ocupacio I Emprenedoria
-S.Fiestas	Servicio de Fiestas y Cultural Popular	S.Cultura Festiva
-S.Bienestar	Servicio de Bienestar Social e Integración	S.Benestar Social I Integracio
-S.Deportes	Servicio de Deportes	S.Esports
-S.Juventud	Servicio de Juventud	S.Joventud
-S.Innovación	Servicio de Sociedad de la Información/Servicio Innovación y Proyectos Emprendedores	S.Innovacio I Societat De La Informacio
-S.Participación	Servicio de Descentralización y Participación Ciudadana	S.Descentralitzacio I Participacio Ciutadana
-S.Acción Cultural	Servicio de Acción Cultural	S.Accio Cultural
-Gabinete Alcaldía	Gabinete de Alcaldía	Gabinet D'Alcaldia
-S.Educación	Servicio de Educación	S.Educacio
-S.Palau	Servicio del Palau de la Música y Congresos	S.Palau De La Musica I Congressos
-S.Rec. Culturales	Servicio de Recursos Culturales	S.Recursos Culturals
-S.Patrimonio	Servicio de Patrimonio Histórico y Cultural	S.Patrimoni Historic I Artistic
-S.Bomberos	Servicio de Bomberos, Prevención e Int.Emerg. y Protección Civil	S.Bombers,Prevencio I Intervencio I Protec.Civil
-S.Comercio	Servicio de Comercio y Abastecimiento 	S.Comerc I Abastiment
-S.Drogodependencias	Servicio de Drogodependencias	S.Drogodependencies
-S.Turismo	Servicio Turismo y Órgano Apoyo JGL y Conc.Sec.	S.Turisme
+socupacio	Servicio de Empleo y Emprendeduría	S.Ocupacio I Emprenedoria
+scultura	Servicio de Fiestas y Cultural Popular	S.Cultura Festiva
+sbenestar	Servicio de Bienestar Social e Integración	S.Benestar Social I Integracio
+sesports	Servicio de Deportes	S.Esports
+sjoventud	Servicio de Juventud	S.Joventud
+sinnovacio	Servicio de Sociedad de la Información/Servicio Innovación y Proyectos Emprendedores	S.Innovacio I Societat De La Informacio
+sdescentralitzacio	Servicio de Descentralización y Participación Ciudadana	S.Descentralitzacio I Participacio Ciutadana
+saccio Cultural	Servicio de Acción Cultural	S.Accio Cultural
+gabinet	Gabinete de Alcaldía	Gabinet D'Alcaldia
+seducacio	Servicio de Educación	S.Educacio
+spalau	Servicio del Palau de la Música y Congresos	S.Palau De La Musica I Congressos
+srecursos Culturales	Servicio de Recursos Culturales	S.Recursos Culturals
+spatrimoni	Servicio de Patrimonio Histórico y Cultural	S.Patrimoni Historic I Artistic
+sbombersprevencio	Servicio de Bomberos, Prevención e Int.Emerg. y Protección Civil	S.Bombers,Prevencio I Intervencio I Protec.Civil
+scomerc	Servicio de Comercio y Abastecimiento 	S.Comerc I Abastiment
+sdrogodependencies	Servicio de Drogodependencias	S.Drogodependencies
+sturisme	Servicio Turismo y Órgano Apoyo JGL y Conc.Sec.	S.Turisme
