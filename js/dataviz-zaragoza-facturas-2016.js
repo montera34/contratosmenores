@@ -71,7 +71,7 @@ var xAxis = d3.svg.axis()
     .orient("bottom")
     .scale(xScale)
 	.tickFormat(isMobile ? ES.timeFormat("%b") : ES.timeFormat("%B"))
-    .ticks(isMobile ? 4 : 8);
+    .ticks(isMobile ? 5 : 10);
     
 //Random variable
 var randomvar = 0;
