@@ -237,7 +237,7 @@ d3.tsv("data/data_factzgz2016.tsv", type, function(error, data) {//reads the dat
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
-				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '') + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo");
+				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '').replace('í', 'i') + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo");
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
@@ -247,7 +247,7 @@ d3.tsv("data/data_factzgz2016.tsv", type, function(error, data) {//reads the dat
 	//The tooltips time scale
 		.on("mouseover", function(d) {
 				div.transition().style("opacity", 1);
-				div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatThousand(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.centro + "<br/>")
+				div.html('20' + d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatThousand(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.centro + "<br/>")
 					.style("left", (d3.event.pageX + 1) + "px")
 					.style("top", (d3.event.pageY - 120) + "px");
 			})
@@ -283,52 +283,6 @@ d3.tsv("data/data_factzgz2016.tsv", type, function(error, data) {//reads the dat
 			}
 		});
 		
-	//Special dates
-	specialdates.append("text")
-		.attr("class", "annotation-related")
-		.attr("x", 5)
-		.attr("y", height+40)
-		.text("Eventos relacionados")
-		.attr("id","eventos_title");
-
-	specialdates.append("text")
-		.attr("class", "annotation-elections")
-		.attr("x", function(d) { return xScale(parseDate('2015-05-25')) + 6; })
-		.attr("y", height+55)
-		.text("Elecciones municipales 24 mayo 2015.");
-	specialdates.append('line')
-		.attr("class", "annotation-elections-line")
-		.attr('y1', height+44)
-		.attr('y2', height+60)
-		.attr('x1', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
-		.attr('x2', function(d) { return xScale(parseDate('2015-05-24')) + 1; })
-		.attr('title','Elecciones municipales 24 mayo 2015\n2015-05-28')
-		.on("mouseover", function(d) {
-		  d3.select(this).attr('y1', 0)
-		    })
-		.on("mouseout", function(d) {
-		    d3.select(this).attr('y1', height+44)
-			});
-
-	specialdates.append("text")
-		.attr("class", "annotation-major")
-		.attr("x", function(d) { return xScale(parseDate('2015-06-14')) + 6; })
-		.attr("y", height+35)
-		.text("Toma de posesión nuevo alcalde.");
-
-	specialdates.append('line')
-		.attr("class", "annotation-major-line")
-		.attr('y1', height+25)
-		.attr('y2', height+41)
-		.attr('x1', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
-		.attr('x2', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
-		.attr('title','Toma de posesión nuevo alcalde.')
-		.on("mouseover", function(d) {
-		  d3.select(this).attr('y1', 0)
-		    })
-		.on("mouseout", function(d) {
-		    d3.select(this).attr('y1', height+44)
-			});
 	
 	// Debounce the resize with lodash
 	// https://css-tricks.com/the-difference-between-throttling-and-debouncing/
