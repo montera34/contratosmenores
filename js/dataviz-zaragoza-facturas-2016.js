@@ -31,7 +31,7 @@ var margin = {top: 15, right: 20, bottom: 70, left: 65},
     width = vis.node().clientWidth - margin.left - margin.right,
     height = (isMobile ? 400 : 550) - margin.top - margin.bottom;
 
-var	topvalue = 62000,
+var	topvalue = 5000000,
 	activeopacity = 0.8;
 
 var ES = d3.locale(es_ES),
@@ -94,19 +94,19 @@ var legend = d3.select("#legend").attr("class", "legend");
 var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
 var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 
-d3.tsv("data/viplist_val2016.tsv", function(error, data) {//reads the viplist.tsv file
+d3.tsv("data/viplist_factzgz2016.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
 		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people +  " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
-			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
+			var personflat = replacement(d.people); //removes spaces and . from person name;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
 				//first time
 				legend.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar.'+ dni).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
+				svg.selectAll('svg .bar.'+personflat).style("opacity",activeopacity).style("visibility","visible"); //selects invoices that match the personflat (company) in its class
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
@@ -137,7 +137,7 @@ d3.tsv("data/viplist_val2016.tsv", function(error, data) {//reads the viplist.ts
 }); //end read viplist.tsv file
 
 //Legend de cosas
-d3.tsv("data/thinglist_val2016.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/thinglist_factzgz2016.tsv", function(error, data) {//reads the thinglist.tsv file
 	legendcosas.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -169,13 +169,13 @@ d3.tsv("data/thinglist_val2016.tsv", function(error, data) {//reads the thinglis
 }); //end read thinglist.tsv file
 
 //Legend de centros presupuestarios
-d3.tsv("data/centroslist_val2016.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/centroslist_factzgz2016.tsv", function(error, data) {//reads the thinglist.tsv file
 	legendcentros.selectAll('div')
 		.data(data)
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs centro";})
 		.attr("id",function(d) { return d.centro;})
-		.text(function(d) { return d.descripCat; }) //Elige el idioma de la leyenda
+		.text(function(d) { return d.descripEs; }) //Elige el idioma de la leyenda
 		.on('click',function(d) { //when click on name
 			var centro = d.centro;
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
@@ -203,7 +203,7 @@ d3.tsv("data/centroslist_val2016.tsv", function(error, data) {//reads the thingl
 }); //end read thinglist.tsv file
 
 //Enters data.tsv and starts the graph-----------------------------------------
-d3.tsv("data/data_val2016.tsv", type, function(error, data) {//reads the data.tsv file
+d3.tsv("data/data_factzgz2016.tsv", type, function(error, data) {//reads the data.tsv file
 	data.forEach(function(d) {
     d.date = parseDate(d.date);
   });
@@ -229,46 +229,6 @@ d3.tsv("data/data_val2016.tsv", type, function(error, data) {//reads the data.ts
 		.attr("font-size","10")
 		.text("Euros");
 
-//Top line
-topline.append('line')
-	.attr('y1', yScale(50000))
-	.attr('y2', yScale(50000))
-	.attr('x1', 0)
-	.attr('x2', width)
-	.attr("class", "topline")
-	.on("mouseover", function(d) {
-	  div.transition()
-	      .duration(200)
-	      .style("opacity", .9);
-	  div.html("Límite contratos de obras 50.000€" )
-	      .style("left", (d3.event.pageX) + "px")
-	      .style("top", (d3.event.pageY) - 35 + "px");
-	  })
-	.on("mouseout", function(d) {
-	  div.transition()
-	      .duration(500)
-	      .style("opacity", 0);
-	});
-topline.append('line')
-	.attr('y1', yScale(18000))
-	.attr('y2', yScale(18000))
-	.attr('x1', 0)
-	.attr('x2', width)
-	.attr("class", "topline")
-	.on("mouseover", function(d) {
-	  div.transition()
-	      .duration(200)
-	      .style("opacity", .9);
-	  div.html("Límite otros contratos menores 18.000€" )
-	      .style("left", (d3.event.pageX) + "px")
-	      .style("top", (d3.event.pageY) - 35 + "px");
-	  })
-	.on("mouseout", function(d) {
-	  div.transition()
-	      .duration(500)
-	      .style("opacity", 0);
-	});
-
 	//Sets the bars with time scale
 	barstimescale.selectAll(".bar")
 		.data(data)
@@ -277,7 +237,7 @@ topline.append('line')
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
-				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '') + "  " + d.dni.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '') + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo");
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
@@ -287,7 +247,7 @@ topline.append('line')
 	//The tooltips time scale
 		.on("mouseover", function(d) {
 				div.transition().style("opacity", 1);
-				div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatThousand(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.centro + "<br/>"  + d.dni)
+				div.html(d.date.getFullYear() + '-' + (d.date.getMonth()+1) + '-' + d.date.getDate() + "<br/><strong/>"  + d.quien + "</strong/><br/>"  + formatThousand(d.importe) + "€ <br/>"  + d.actividad + "<br/>"  + d.centro + "<br/>")
 					.style("left", (d3.event.pageX + 1) + "px")
 					.style("top", (d3.event.pageY - 120) + "px");
 			})
