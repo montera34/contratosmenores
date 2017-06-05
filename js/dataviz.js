@@ -110,16 +110,8 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 			console.log(filters);
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
-			//filtersText = filtersText.trim(); //Trim whitespace at the end
 			console.log(filtersText);
 			console.log('svg .bar'+ filtersText);
-			// var indx = filters.indexOf(d.dni); //check if class exists in filters[]
-			// if (indx == -1) {
-			// 	filters.push(d.dni); //Add class to filters[]
-			// }
-			// else {
-			// 	filters.splice(indx, 1); //Remove class from filters
-			// }
 
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
 				//first time
@@ -168,15 +160,6 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 
 			filters[1] = d.cosa;
 			console.log(filters);
-			// var indx = filters.indexOf(d.cosa); //check if class exists in filters[]
-			// if (indx == -1) {
-			// 	filters.push(d.cosa); //Add class to filters[]
-			// }
-			// else {
-			// 	filters.splice(indx, 1); //Remove class from filters
-			// }
-
-			//console.log(filters);
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
 			//filtersText = filtersText.trim(); //Trim whitespace at the end
@@ -197,6 +180,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
+				filters[1] = '';
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs thing";}); //removes .success class
@@ -220,16 +204,8 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 			console.log(filters);
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
-			//filtersText = filtersText.trim(); //Trim whitespace at the end
 			console.log(filtersText);
 			console.log('svg .bar'+ filtersText);
-			// var indx = filters.indexOf(d.centro); //check if class exists in filters[]
-			// if (indx == -1) {
-			// 	filters.push(d.centro); //Add class to filters[]
-			// }
-			// else {
-			// 	filters.splice(indx, 1); //Remove class from filters
-			// }
 
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
 				//first time
