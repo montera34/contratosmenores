@@ -180,7 +180,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
-				filters[1] = '';
+			
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs thing";}); //removes .success class
