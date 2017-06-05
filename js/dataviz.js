@@ -137,11 +137,14 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs'){
+				delete filters[0];
+				var filtersText = '';
+				filters.forEach(function(item){filtersText += '.' + item;});
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.description').text("");
 				svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .success class
-				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -158,11 +161,10 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 		.on('click',function(d) { //when click on name
 			var cosa = d.cosa;
 
-			filters[1] = d.cosa;
+			filters[1] = d.cosa;	//Assign to filters array
 			console.log(filters);
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
-			//filtersText = filtersText.trim(); //Trim whitespace at the end
 			console.log(filtersText);
 			console.log('svg .bar'+ filtersText);
 
@@ -170,7 +172,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 				//first time
 				legendcosas.select('.btn-success').attr('class','inactive btn btn-default btn-xs thing');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //select the rects by the chosen filters 
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
@@ -180,11 +182,13 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
-			
+				delete filters[1];
+				var filtersText = '';
+				filters.forEach(function(item){filtersText += '.' + item;});
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs thing";}); //removes .success class
-				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
 			}
 		});	
 }); //end read thinglist.tsv file
@@ -221,10 +225,13 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs centro'){
+				delete filters[2];
+				var filtersText = '';
+				filters.forEach(function(item){filtersText += '.' + item;});
 				svg.selectAll('.vipname').text("");
 				svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs centro";}); //removes .success class
-				svg.selectAll('svg .bar').style("opacity",.4).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
 			}
 		});
 //	legendcentros.select('#publicitat').html("Of. Publicitat Anuncis Oficials");
