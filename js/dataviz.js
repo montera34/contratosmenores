@@ -115,7 +115,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
 				//first time
-				legendcentros.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
+				legend.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
