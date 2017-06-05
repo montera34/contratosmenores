@@ -94,6 +94,9 @@ var legend = d3.select("#legend").attr("class", "legend");
 var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
 var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 
+//Class filters
+var filters = [];
+
 d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
@@ -102,11 +105,27 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people +  " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
 			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
+
+			filters[0] = dni;
+			console.log(filters);
+			var filtersText = '';
+			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
+			//filtersText = filtersText.trim(); //Trim whitespace at the end
+			console.log(filtersText);
+			console.log('svg .bar'+ filtersText);
+			// var indx = filters.indexOf(d.dni); //check if class exists in filters[]
+			// if (indx == -1) {
+			// 	filters.push(d.dni); //Add class to filters[]
+			// }
+			// else {
+			// 	filters.splice(indx, 1); //Remove class from filters
+			// }
+
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
 				//first time
-				legend.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
+				legendcentros.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar.'+ dni).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
+				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
@@ -146,11 +165,29 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 		.text(function(d) { return d.cosa; })
 		.on('click',function(d) { //when click on name
 			var cosa = d.cosa;
+
+			filters[1] = d.cosa;
+			console.log(filters);
+			// var indx = filters.indexOf(d.cosa); //check if class exists in filters[]
+			// if (indx == -1) {
+			// 	filters.push(d.cosa); //Add class to filters[]
+			// }
+			// else {
+			// 	filters.splice(indx, 1); //Remove class from filters
+			// }
+
+			//console.log(filters);
+			var filtersText = '';
+			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
+			//filtersText = filtersText.trim(); //Trim whitespace at the end
+			console.log(filtersText);
+			console.log('svg .bar'+ filtersText);
+
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs thing'){
 				//first time
 				legendcosas.select('.btn-success').attr('class','inactive btn btn-default btn-xs thing');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar.'+ cosa).style("opacity",activeopacity).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
@@ -169,7 +206,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 }); //end read thinglist.tsv file
 
 //Legend de centros presupuestarios
-d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centrolist.tsv file
 	legendcentros.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -178,11 +215,27 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the thingl
 		.text(function(d) { return d.descripCat; }) //Elige el idioma de la leyenda
 		.on('click',function(d) { //when click on name
 			var centro = d.centro;
+
+			filters[2] = d.centro;
+			console.log(filters);
+			var filtersText = '';
+			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
+			//filtersText = filtersText.trim(); //Trim whitespace at the end
+			console.log(filtersText);
+			console.log('svg .bar'+ filtersText);
+			// var indx = filters.indexOf(d.centro); //check if class exists in filters[]
+			// if (indx == -1) {
+			// 	filters.push(d.centro); //Add class to filters[]
+			// }
+			// else {
+			// 	filters.splice(indx, 1); //Remove class from filters
+			// }
+
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
 				//first time
 				legendcentros.select('.btn-success').attr('class','inactive btn btn-default btn-xs centro');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar.'+ centro).style("opacity",activeopacity).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
 				svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
