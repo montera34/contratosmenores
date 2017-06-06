@@ -119,9 +119,9 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
-				svg.selectAll('.personatable text').remove(	);
+				//svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
-				svg.selectAll('.description').text("");
+				//svg.selectAll('.description').text("");
 				if (d.ncontratos == '-') { //don't show  ( ) if the field entidad is empty
 						svg.select('.persontable').append('text').text(d.people).attr("class","vipname")
 						.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
@@ -131,9 +131,9 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						.attr("x", function(d) { return randomvar == 0 ? 40 : 0;})
 						.attr("y", function(d) { return randomvar == 0 ? 40 : height + 40;});
 				}
-				svg.select('.persontable').append('text').text(d.description).attr("class","description")
-						.attr("x", function(d) { return randomvar == 0 ? 40 : 0;})
-						.attr("y", function(d) { return randomvar == 0 ? 60 : height + 60;});
+				// svg.select('.persontable').append('text').text(d.description).attr("class","description")
+				// 		.attr("x", function(d) { return randomvar == 0 ? 40 : 0;})
+				// 		.attr("y", function(d) { return randomvar == 0 ? 60 : height + 60;});
 				
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs'){
@@ -141,8 +141,8 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
 				svg.selectAll('.vipname').text("");
-				svg.selectAll('.description').text("");
-				svg.selectAll('.personatable').remove(	);
+				//svg.selectAll('.description').text("");
+				//svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .success class
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
 			}
@@ -174,9 +174,9 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //select the rects by the chosen filters 
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
-				svg.selectAll('.personatable text').remove(	);
+				//svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
-				svg.selectAll('.description').text("");
+				//svg.selectAll('.description').text("");
 				svg.select('.persontable').append('text').text(d.cosa).attr("class","vipname")
 					.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
 					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
@@ -186,7 +186,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
 				svg.selectAll('.vipname').text("");
-				svg.selectAll('.personatable').remove(	);
+				//svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs thing";}); //removes .success class
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
 			}
@@ -217,9 +217,9 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
-				svg.selectAll('.personatable text').remove(	);
+				//svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.vipname').text("");
-				svg.selectAll('.description').text("");
+				//svg.selectAll('.description').text("");
 				svg.select('.persontable').append('text').text(d.descripEs).attr("class","vipname")
 					.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
 					.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
@@ -229,7 +229,7 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
 				svg.selectAll('.vipname').text("");
-				svg.selectAll('.personatable').remove(	);
+				//svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs centro";}); //removes .success class
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
 			}
@@ -346,7 +346,7 @@ topline.append('line')
 				svg.select('#topline').style("visibility","hidden");
 				d3.select(this).style("border","2px solid #000"); //adds class success to button
 				svg.selectAll('.vipname').attr("y", height + 40).attr("x", 0);
-				svg.selectAll('.description').attr("y", height + 60).attr("x", 0);
+				//svg.selectAll('.description').attr("y", height + 60).attr("x", 0);
 				svg.select('#eventos_title').remove();
 			} else {
 				randomvar = 0;
@@ -354,7 +354,7 @@ topline.append('line')
 				.attr("y", function(d) { return yScale(Math.max(0, d.importe > topvalue ? topvalue : d.importe)); });
 				svg.select('#topline').style("visibility","visible");
 				svg.selectAll('.vipname').attr("y", 40).attr("x", 40);
-				svg.selectAll('.description').attr("y", 60).attr("x", 40);
+				//svg.selectAll('.description').attr("y", 60).attr("x", 40);
 				d3.select(this).style("border","1px solid #888"); //adds class success to button
 			}
 		});
