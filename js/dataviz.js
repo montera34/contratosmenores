@@ -107,11 +107,8 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
 
 			filters[0] = dni;
-			console.log(filters);
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
-			console.log(filtersText);
-			console.log('svg .bar'+ filtersText);
 
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
 				//first time
@@ -162,11 +159,8 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 			var cosa = d.cosa;
 
 			filters[1] = d.cosa;	//Assign to filters array
-			console.log(filters);
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
-			console.log(filtersText);
-			console.log('svg .bar'+ filtersText);
 
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs thing'){
 				//first time
@@ -205,11 +199,8 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 			var centro = d.centro;
 
 			filters[2] = d.centro;
-			console.log(filters);
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
-			console.log(filtersText);
-			console.log('svg .bar'+ filtersText);
 
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
 				//first time
