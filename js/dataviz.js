@@ -96,7 +96,7 @@ var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 
 //Class filters
 var filters = [];
-
+var temp;
 d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
@@ -115,6 +115,13 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				legend.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
+				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
+				legendcentros.selectAll('.centro') //select all centro buttons
+					.style('background-color','#eee') //first time all buttons to grey
+					.each(function(d, i){	// for each button
+					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
+					 	if ( temp.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
+					 })
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
 				//svg.selectAll('.personatable text').remove(	);
 				svg.selectAll('.persontable>text').remove();
@@ -138,6 +145,8 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
 				svg.selectAll('.persontable>text').remove()
+				legendcentros.selectAll('.centro') //select all centro buttons
+					.style('background-color','#eee') //first time all buttons to grey
 				//svg.selectAll('.description').text("");
 				//svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .success class
