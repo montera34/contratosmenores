@@ -94,6 +94,7 @@ var legend = d3.select("#legend");
 var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
 var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 var filtros = d3.select("#filters");
+var randomselect = d3.select("#randomselect");
 
 //Class filters
 var filters = [];
@@ -126,7 +127,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
 				//svg.selectAll('.personatable text').remove(	);
 			//	svg.selectAll('.persontable>text').remove();
-				filtros.select('#filterlayout1').html(d.people + " (contratos: " + d.ncontratos + ", importe: " + d.importe + "€)").style('opacity','1.0'); //write in description
+				filtros.select('#filterlayout1').html("<strong>" + d.people + "</strong> <br>Importe: <strong>" + d.importe + "€</strong><br>nº de contratos: " + d.ncontratos + "").style('opacity','1.0'); //write in description
 				//svg.selectAll('.description').text("");
 				// if (d.ncontratos == '-') { //don't show  ( ) if the field entidad is empty
 				// 		svg.select('.persontable').append('text').text(d.people).attr("class","vipname")
@@ -182,7 +183,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
 				//svg.selectAll('.personatable text').remove(	);
 		//		svg.selectAll('.persontable>text').remove()
-				filtros.select('#filterlayout3').html(d.cosa).style('opacity','1.0');
+				filtros.select('#filterlayout3').html("<strong>" + d.cosa + "</strong>").style('opacity','1.0');
 				//svg.selectAll('.description').text("");
 			// 	svg.select('.persontable').append('text').text(d.cosa).attr("class","vipname")
 			// 		.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
@@ -223,7 +224,7 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible");
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
 				//svg.selectAll('.personatable text').remove(	);
-				filtros.select('#filterlayout2').html(d.descripEs).style('opacity','1.0');
+				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
 		//		svg.selectAll('.persontable>text').remove()
 				//svg.selectAll('.description').text("");
 				// svg.select('.persontable').append('text').text(d.descripEs).attr("class","vipname")
@@ -246,7 +247,7 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 }); //end read thinglist.tsv file
 
 //On load write "Todos" in the selection description
-filtros.selectAll('div').html("Todos").style('opacity','0.3');
+filtros.selectAll('.filtro').html("Todos").style('opacity','0.3');
 
 //Enters data.tsv and starts the graph-----------------------------------------
 d3.tsv("data/data_val2015.tsv", type, function(error, data) {//reads the data.tsv file
@@ -344,7 +345,7 @@ topline.append('line')
 		});
 		
 	//Random button: posiciona las barras aleatoriamente en el eje vertical, manteniendo su posición horizontal por fecha
-	legendcosas.append("div").attr("class","inactive btn btn-default btn-xs pull-right")
+	randomselect.append("div").attr("class","inactive btn btn-default btn-xs pull-right")
 		.text("Posición vertical aleatoria")
 		.attr("title","Posiciona las barras que representan los gastos aleatoriamente, manteniendo la posición por fecha")
 		.attr("id","random")

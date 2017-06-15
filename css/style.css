@@ -188,3 +188,7 @@ mark {
 	font-size: 25px;
 	font-weight: bold;
 }
+
+#select {
+	margin-bottom: 10px;
+}
