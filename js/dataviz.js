@@ -90,7 +90,7 @@ var topline = svg.append('g').attr('id','topline');
 var specialdates = svg.append('g').attr('class','specialdates').attr('id','specialdates');
 
 //Legends
-var legend = d3.select("#legend").attr("class", "legend");
+var legend = d3.select("#legend");
 var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
 var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 var filtros = d3.select("#filters");
@@ -101,7 +101,7 @@ var temp;
 d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
-		.enter().append("div")
+		.enter().append("li")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
 		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people +  " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
