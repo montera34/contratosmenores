@@ -126,7 +126,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
 				//svg.selectAll('.personatable text').remove(	);
 			//	svg.selectAll('.persontable>text').remove();
-				filtros.select('#filterlayout1').html(d.people).style('opacity','1.0'); //write in description
+				filtros.select('#filterlayout1').html(d.people + " (contratos: " + d.ncontratos + ", importe: " + d.importe + "€)").style('opacity','1.0'); //write in description
 				//svg.selectAll('.description').text("");
 				// if (d.ncontratos == '-') { //don't show  ( ) if the field entidad is empty
 				// 		svg.select('.persontable').append('text').text(d.people).attr("class","vipname")
