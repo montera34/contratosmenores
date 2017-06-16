@@ -102,7 +102,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("li")
-		.attr("class", function(d) { return "inactive btn btn-default btn-xs";})
+		.attr("class", function(d) { return "inactive";})
 		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people +  " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
 			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
@@ -111,9 +111,9 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
 
-			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs'){
+			if (d3.select(this).attr('class')==='inactive'){
 				//first time
-				legend.select('.btn-success').attr('class','inactive btn btn-default btn-xs');
+				legend.select('.btn-success').attr('class','inactive');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
 				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
@@ -123,7 +123,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
 					 	if ( temp.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
 					 })
-				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs"); //adds class success to button
+				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
 				//svg.selectAll('.personatable text').remove(	);
 			//	svg.selectAll('.persontable>text').remove();
 				filtros.select('#filterlayout1').html(d.people + " (contratos: " + d.ncontratos + ", importe: " + d.importe + "€)").style('opacity','1.0'); //write in description
@@ -142,7 +142,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				// 		.attr("y", function(d) { return randomvar == 0 ? 60 : height + 60;});
 				
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs'){
+			} else if (d3.select(this).attr('class')==='btn-success'){
 				delete filters[0];
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
@@ -152,7 +152,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 				//svg.selectAll('.description').text("");
 				//svg.selectAll('.personatable').remove(	);
 				filtros.select('#filterlayout1').html("Todos").style('opacity','0.3'); //Erase from description
-				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs";}); //removes .success class
+				d3.select(this).attr("class",function(d) { return "inactive";}); //removes .success class
 				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
 			}
 		}).append('img')
