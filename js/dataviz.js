@@ -102,7 +102,7 @@ var temp;
 d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
-		.enter().append("li")
+		.enter().append("li").append("a")
 		.attr("class", function(d) { return "inactive";})
 		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people +  " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
