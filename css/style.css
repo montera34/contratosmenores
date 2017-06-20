@@ -41,7 +41,7 @@ div.tooltip {
 }
 
 .centro {
-    background-color: #eee !important;
+    background-color: #eee; /*Removed !important because it gave problems with the filtering, Junio 2017, Leonidas */
     border-color: #eee;
 }
 
@@ -187,4 +187,8 @@ mark {
 .embed h2 {
 	font-size: 25px;
 	font-weight: bold;
+}
+
+#select {
+	margin-bottom: 10px;
 }
