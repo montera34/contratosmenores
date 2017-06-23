@@ -99,7 +99,7 @@ var randomselect = d3.select("#randomselect");
 //Class filters
 var filters = [];
 var temp;
-d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.tsv file
+d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("li").append("a")
@@ -161,7 +161,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 }); //end read viplist.tsv file
 
 //Legend de cosas
-d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv file
 	legendcosas.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -203,7 +203,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 }); //end read thinglist.tsv file
 
 //Legend de centros presupuestarios
-d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centrolist.tsv file
+d3.tsv("data/centroslist.tsv", function(error, data) {//reads the centrolist.tsv file
 	legendcentros.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -250,7 +250,7 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 filtros.selectAll('.filtro').html("Todos").style('opacity','0.3');
 
 //Enters data.tsv and starts the graph-----------------------------------------
-d3.tsv("data/data_val2015.tsv", type, function(error, data) {//reads the data.tsv file
+d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 	data.forEach(function(d) {
     d.date = parseDate(d.date);
   });
