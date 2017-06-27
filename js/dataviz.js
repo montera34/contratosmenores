@@ -125,7 +125,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-				barrasactivas.select('p').html(formatThousand(suma));
+				barrasactivas.select('span').html(formatThousand(suma));
 				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
 				legendcentros.selectAll('.centro') //select all centro buttons
 					.style('background-color','#eee') //first time all buttons to grey
@@ -173,7 +173,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-					barrasactivas.select('p').html(formatThousand(suma));
+					barrasactivas.select('span').html(formatThousand(suma));
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -206,7 +206,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-				barrasactivas.select('p').html(formatThousand(suma));
+				barrasactivas.select('span').html(formatThousand(suma));
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
 				//svg.selectAll('.personatable text').remove(	);
 		//		svg.selectAll('.persontable>text').remove()
@@ -232,7 +232,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-					barrasactivas.select('p').html(formatThousand(suma));
+					barrasactivas.select('span').html(formatThousand(suma));
 			}
 		});	
 }); //end read thinglist.tsv file
@@ -264,7 +264,7 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-				barrasactivas.select('p').html(formatThousand(suma));
+				barrasactivas.select('span').html(formatThousand(suma));
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
 				//svg.selectAll('.personatable text').remove(	);
 				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
@@ -290,7 +290,7 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-					barrasactivas.select('p').html(formatThousand(suma));
+					barrasactivas.select('span').html(formatThousand(suma));
 			}
 		});
 //	legendcentros.select('#publicitat').html("Of. Publicitat Anuncis Oficials");
