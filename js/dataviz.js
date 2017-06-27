@@ -96,7 +96,9 @@ var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 var filtros = d3.select("#filters");
 var barrasactivas = d3.select("#barrasactivas");
 var randomselect = d3.select("#randomselect");
-
+var totales = d3.select("#totales");
+totales.append("div").attr("class","backgr");
+totales.append("div").attr("class","overlapped");
 //Class filters
 var filters = [];
 var temp;
@@ -133,6 +135,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
 					 	if ( temp.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
 					 })
+				totales.select("div.overlapped").style("position","relative").style("top","-20px").style("height","20px").style("width","100px").style("background-color","red");
 					var suma = 0;
 				//svg.selectAll('svg .bar'+ filtersText)
 				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
@@ -174,6 +177,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
 					barrasactivas.select('p').html(formatThousand(suma));
+					totales.select("div.overlapped").style('height',"0px");
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -420,7 +424,11 @@ topline.append('line')
 				d3.select(this).style("border","1px solid #888"); //adds class success to button
 			}
 		});
-		
+
+	//Barra horizontal de totales
+	totales.select("div.backgr").style("width","70%").style("height","20px").style("background-color","#4C9ED9");
+	totales.select("div.backgr").append("p").html("Total :" + "14.456.814,33€").style("text-align","right");
+
 	//Special dates
 	specialdates.append("text")
 		.attr("class", "annotation-related")
