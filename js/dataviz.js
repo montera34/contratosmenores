@@ -324,7 +324,7 @@ topline.append('line')
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
-				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '') + "  " + d.dni.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '').replace(/'/g,'') + "  " + d.dni.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
