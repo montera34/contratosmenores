@@ -100,10 +100,9 @@ var randomselect = d3.select("#randomselect");
 var totales = d3.select("#totales");
 
 var totalImporte = 14456814.33; //Total of all contratos
-totales.append("div").attr("class","backgr"); //barra total
-totales.append("div").attr("class","overlapped"); //barra con importe de barras activas
+totales.append("div").attr("class","backgr").style("width","80%").style("height","20px").style("background-color","#4C9ED9"); //barra total
+totales.append("div").attr("class","overlapped").style("position","relative").style("top","-20px").style("height","20px").style("background-color","red").style("width","0px"); //barra con importe de barras activas
 //Barra horizontal de totales
-totales.select("div.backgr").style("width","80%").style("height","20px").style("background-color","#4C9ED9");
 totales.select("div.backgr").append("p").html("Total :" + "14.456.814,33€").style("text-align","right");
 var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales.select("div.backgr").style("width")]);
 
@@ -144,7 +143,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
 					 	if ( barrasActivasSelected.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
 					 })
-				totales.select("div.overlapped").style("position","relative").style("top","-20px").style("height","20px").style("width",totalsDomain(suma)).style("background-color","red");
+				totales.select("div.overlapped").style("width",totalsDomain(suma));
 				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
 				filtros.select('#filterlayout1').html("<strong>" + d.people + "</strong> <br>Importe: <strong>" + d.importe + "€</strong><br>nº de contratos: " + d.ncontratos + "").style('opacity','1.0'); //write in description
 				
@@ -166,7 +165,7 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
 				barrasactivas.select('p').html(formatThousand(suma));
-				totales.select("div.overlapped").style("position","relative").style("top","-20px").style("height","20px").style("width",totalsDomain(suma)).style("background-color","red");
+				totales.select("div.overlapped").style("width",totalsDomain(suma));
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -247,7 +246,7 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
 				barrasactivas.select('p').html(formatThousand(suma));
-				totales.select("div.overlapped").style("position","relative").style("top","-20px").style("height","20px").style("width",totalsDomain(suma)).style("background-color","red");
+				totales.select("div.overlapped").style("width",totalsDomain(suma));
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
 				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
 			//second time
@@ -266,7 +265,7 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
 					barrasactivas.select('p').html(formatThousand(suma));
-					totales.select("div.overlapped").style("position","relative").style("top","-20px").style("height","20px").style("width",totalsDomain(suma)).style("background-color","red");
+					totales.select("div.overlapped").style("width",totalsDomain(suma));
 			}
 		});
 }); //end read thinglist.tsv file
