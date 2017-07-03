@@ -96,7 +96,9 @@ line.topline:hover {
 }
 
 .page-footer {
-  margin-top:15px;	
+  margin-top:15px;
+	width: 100%;
+	background-color: #f5f5f5;
 }
 
 .thing span {
