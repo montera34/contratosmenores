@@ -134,9 +134,14 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
+<<<<<<< HEAD
 				barrasactivas.select('p').html(formatThousand(suma));
 				barrasActivasSelected = svg.selectAll('svg .bar'+ filtersText); //Selection of active bars
 				//Look for activity in all centros de actividad
+=======
+				barrasactivas.select('span').html(formatThousand(suma));
+				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
+>>>>>>> 24_importebarras
 				legendcentros.selectAll('.centro') //select all centro buttons
 					.style('background-color','#eee') //first time all buttons to grey color
 					.each(function(d, i){	// for each button
@@ -164,8 +169,12 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
+<<<<<<< HEAD
 				barrasactivas.select('p').html(formatThousand(suma));
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
+=======
+					barrasactivas.select('span').html(formatThousand(suma));
+>>>>>>> 24_importebarras
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -196,7 +205,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-				barrasactivas.select('p').html(formatThousand(suma));
+				barrasactivas.select('span').html(formatThousand(suma));
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
 				filtros.select('#filterlayout3').html("<strong>" + d.cosa + "</strong>").style('opacity','1.0');
 			// //second time
@@ -214,7 +223,7 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-					barrasactivas.select('p').html(formatThousand(suma));
+					barrasactivas.select('span').html(formatThousand(suma));
 			}
 		});	
 }); //end read thinglist.tsv file
@@ -245,8 +254,12 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
+<<<<<<< HEAD
 				barrasactivas.select('p').html(formatThousand(suma));
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
+=======
+				barrasactivas.select('span').html(formatThousand(suma));
+>>>>>>> 24_importebarras
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
 				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
 			//second time
@@ -264,8 +277,12 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
+<<<<<<< HEAD
 					barrasactivas.select('p').html(formatThousand(suma));
 					totales.select("div.overlapped").style("width",totalsDomain(suma));
+=======
+					barrasactivas.select('span').html(formatThousand(suma));
+>>>>>>> 24_importebarras
 			}
 		});
 }); //end read thinglist.tsv file
