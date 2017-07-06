@@ -1,46 +1,46 @@
-centro	descripEs	descripCat	importe
-festiva	Servicio de Fiestas y Cultural Popula	S.Cultura Festiva                                 	1525020
-sservicis	Servicios Centrales Técnicos	S.Servicis Centrals Tecnics                       	1242426
-publicitat	Oficina Publicidad y Anuncios Oficiales	Of.De Publicitat I Anuncis Oficials      	1130746
-sjardineria	Servicio de Jardinería	S.Jardineria                                      	1128119
-educacio	Servicio de Educación	S. Educacio	916980
-sobres	Servicios de obras de infraestructura	S.Obres d'infraestructura	810268
-tecnologies	Servicio Tecnologías de la Información y Comunicación	S. Tecnologies De La Informacio Y La Comunicacio  	665377
-intervencio	Servicio de Bomberos, Prevención e Int.Emerg. y Protección Civil	S.Bombers,Prevencio I Intervencio I Protec.Civil  	613256
-historic	Servicio de Patrimonio Histórico y Cultural	S.Patrimoni Historic I Artistic                   	579333
-cultural	Servicio de Acción Cultural	S.Accio Cultural                                  	477761
-spedanies	Servicio de Pedanías	S.Pedanies                                        	457552
-sbenestar	Servicio de Bienestar Social e Integración	S.Benestar Social I Integracio                    	452851
-sjoventud	Servicio de Juventud	S.Joventud                                        	392430
-sesports		S.ESPORTS	380386
-socupacio		S.OCUPACIO I EMPRENEDORIA	368436
-senllumenat	Servicios de iluminación y fuentes ornamnetales	S.Enllumenat i fonts ornamentals	314981
-scomerc		S.COMERC I ABASTIMENT	296850
-spalau		S.PALAU DE LA MUSICA I CONGRESSOS	264543
-culturals		S.RECURSOS CULTURALS	251146
-sprotocol		S.PROTOCOL	250245
-scirculacio		S.CIRCULACIO I TRANSPORT I LES SEUES INFRAESTRUCT.	247867
-urbanistica		SUBAREA S.PLANEAM.I GESTIO URBANISTICA	231816
-sdevesa-albufera		S.DEVESA-ALBUFERA	226358
-sdrogodependencies		S.DROGODEPENDENCIES	143280
-sturisme	Servicio Turismo y Órgano Apoyo JGL y Conc.Sec.	S.Turisme	135137
-scementeris		S.CEMENTERIS	103994
-spolicia		S.POLICIA LOCAL	101521
-participacio	Servicio de Descentralización y Participación Ciudadana	S.Descentralitzacio I Participacio Ciutadana	96476
-squalitat		S.QUALITAT I AN.MEDIAMB,CONTAM.ACUSTICA I PLATGES	95399
-ssanitat		S.SANITAT	94470
-splatges		S.PLATGES	90920
-renovables	Servicio Calidad Ambiental, Energías Renovables y Cambio Climático	S.Energies Renovables I Canvi Climatic            	86827
-comunicacions		GABINET DE COMUNICACIONS	50628
-srelacions		S.RELACIONS INTERNACIONALS	47059
-scicle		S.CICLE INTEGRAL DEL L'AIGUA	42654
-sorgan		S.ORGAN SUPORT JGL I REGIDOR SECRETARI	35444
-sinnovacio	Servicio de Sociedad de la Información/Servicio Innovación y Proyectos Emprendedores	S.Innovacio I Societat De La Informacio           	26149
-scoordobra		S.COORD.OBRA VIA PBCA I MANTENIMENT INFRAESTRUCT.	21394
-svivenda		S.VIVENDA	17846
-sllicences		S.LLICENCES URBANISTIQUES OBRES D'EDIFICACIO	17497
-servicis		SERVICIS CENTRALS	10227
-dalcaldia		GABINET D'ALCALDIA	9891
-ssocietat		S.SOCIETAT DE LA INFORMACIO	6000
-spatrimoni		S.PATRIMONI	3459
-destadistica		OFICINA D'ESTADISTICA	805
+centro	descripEs	descripCat	descripEsCorto	importe
+festiva	Servicio de Fiestas y Cultural Popula	S.Cultura Festiva	Fiestas	1525020
+sservicis	Servicios Centrales Técnicos	S.Servicis Centrals Tecnics	Técnicos	1242426
+publicitat	Oficina Publicidad y Anuncios Oficiales	Of.De Publicitat I Anuncis Oficials	Publicidad	1130746
+sjardineria	Servicio de Jardinería	S.Jardineria	Jardinería	1128119
+educacio	Servicio de Educación	S. Educacio	Educación	916980
+sobres	Servicios de obras de infraestructura	S.Obres d'infraestructura	Obras infraestructuras	810268
+tecnologies	Servicio Tecnologías de la Información y Comunicación	S. Tecnologies De La Informacio Y La Comunicacio	TIC	665377
+intervencio	Servicio de Bomberos, Prevención e Int.Emerg. y Protección Civil	S.Bombers,Prevencio I Intervencio I Protec.Civil	Bomberos	613256
+historic	Servicio de Patrimonio Histórico y Cultural	S.Patrimoni Historic I Artistic	Patrimonio	579333
+cultural	Servicio de Acción Cultural	S.Accio Cultural	Cultura	477761
+spedanies	Servicio de Pedanías	S.Pedanies	Pedanías	457552
+sbenestar	Servicio de Bienestar Social e Integración	S.Benestar Social I Integracio	Bienestar social	452851
+sjoventud	Servicio de Juventud	S.Joventud	Juventud	392430
+sesports		S.ESPORTS	Deportes	380386
+socupacio		S.OCUPACIO I EMPRENEDORIA	Emprendedoría	368436
+senllumenat	Servicios de iluminación y fuentes ornamnetales	S.Enllumenat i fonts ornamentals	Iluminación y fuentes	314981
+scomerc		S.COMERC I ABASTIMENT	Comercio	296850
+spalau		S.PALAU DE LA MUSICA I CONGRESSOS	Palau de la música y congresos	264543
+culturals		S.RECURSOS CULTURALS	Recursos naturales	251146
+sprotocol		S.PROTOCOL	Protocolo	250245
+scirculacio		S.CIRCULACIO I TRANSPORT I LES SEUES INFRAESTRUCT.	Transporte	247867
+urbanistica		SUBAREA S.PLANEAM.I GESTIO URBANISTICA	Planeamiento urbano	231816
+sdevesa-albufera		S.DEVESA-ALBUFERA	Devesa-Albufera	226358
+sdrogodependencies		S.DROGODEPENDENCIES	Drogodependencias	143280
+sturisme	Servicio Turismo y Órgano Apoyo JGL y Conc.Sec.	S.Turisme	Turismo	135137
+scementeris		S.CEMENTERIS	Cementerios	103994
+spolicia		S.POLICIA LOCAL	Policía	101521
+participacio	Servicio de Descentralización y Participación Ciudadana	S.Descentralitzacio I Participacio Ciutadana	Participación	96476
+squalitat		S.QUALITAT I AN.MEDIAMB,CONTAM.ACUSTICA I PLATGES	Mediambiente, contam. acústuca yplayas	95399
+ssanitat		S.SANITAT	Sanidad	94470
+splatges		S.PLATGES	Playas	90920
+renovables	Servicio Calidad Ambiental, Energías Renovables y Cambio Climático	S.Energies Renovables I Canvi Climatic	Renovables	86827
+comunicacions		GABINET DE COMUNICACIONS	Comunicación	50628
+srelacions		S.RELACIONS INTERNACIONALS	Internacional	47059
+scicle		S.CICLE INTEGRAL DEL L'AIGUA	Aguas	42654
+sorgan		S.ORGAN SUPORT JGL I REGIDOR SECRETARI	Regiduría	35444
+sinnovacio	Servicio de Sociedad de la Información/Servicio Innovación y Proyectos Emprendedores	S.Innovacio I Societat De La Informacio	Innovación	26149
+scoordobra		S.COORD.OBRA VIA PBCA I MANTENIMENT INFRAESTRUCT.	Coord. obra	21394
+svivenda		S.VIVENDA	Vivienda	17846
+sllicences		S.LLICENCES URBANISTIQUES OBRES D'EDIFICACIO	Licencias obras	17497
+servicis		SERVICIS CENTRALS	Servicios centrales	10227
+dalcaldia		GABINET D'ALCALDIA	Gabineta alcaldía	9891
+ssocietat		S.SOCIETAT DE LA INFORMACIO	Sociedad información	6000
+spatrimoni		S.PATRIMONI	Patrimonio	3459
+destadistica		OFICINA D'ESTADISTICA	Estadística	805

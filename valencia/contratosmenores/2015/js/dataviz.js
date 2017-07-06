@@ -236,7 +236,7 @@ d3.tsv("data/centroslist.tsv", function(error, data) {//reads the centrolist.tsv
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs centro";})
 		.attr("id",function(d) { return d.centro;})
-		.text(function(d) { return d.descripCat; }) //Elige el idioma de la leyenda
+		.text(function(d) { return d.descripEsCorto; }) //Elige el idioma de la leyenda
 		.on('click',function(d) { //when click on name
 			var centro = d.centro;
 			filters[2] = d.centro;
@@ -262,7 +262,7 @@ d3.tsv("data/centroslist.tsv", function(error, data) {//reads the centrolist.tsv
 				barrasactivas.select('span').html(formatThousand(suma)+'€');
 
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
-				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
+				filtros.select('#filterlayout2').html("<strong>" + d.descripCat + "</strong>").style('opacity','1.0');
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs centro'){
 				delete filters[2];
