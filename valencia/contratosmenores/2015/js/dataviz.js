@@ -103,7 +103,7 @@ var totalImporte = 14456814.33; //Total of all contratos
 totales.append("div").attr("class","backgr").style("width","100%").style("height","20px").style("background-color","#4C9ED9"); //barra total
 totales.append("div").attr("class","overlapped").style("position","relative").style("top","-20px").style("height","20px").style("background-color","red").style("width","0px"); //barra con importe de barras activas
 //Barra horizontal de totales
-totales.select("div.backgr").append("p").html("Total :" + "14.456.814,33€").style("text-align","right");
+totales.select("div.backgr").append("p").html("Total: " + "14.456.814,33€").style("text-align","right").style("margin-right","5px");
 var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales.select("div.backgr").style("width")]);
 
 //Class filters
