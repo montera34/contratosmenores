@@ -73,6 +73,7 @@ var xAxis = d3.svg.axis()
 	.tickFormat(isMobile ? ES.timeFormat("%b") : ES.timeFormat("%B"))
     .ticks(isMobile ? 4 : 8);
     
+
 //Random variable
 var randomvar = 0;
 
@@ -94,11 +95,20 @@ var legend = d3.select("#legend");
 var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
 var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 var filtros = d3.select("#filters");
+var barrasactivas = d3.select("#barrasactivas");
 var randomselect = d3.select("#randomselect");
+var totales = d3.select("#totales");
+
+var totalImporte = 14456814.33; //Total of all contratos
+totales.append("div").attr("class","backgr").style("width","100%").style("height","20px").style("background-color","#4C9ED9"); //barra total
+totales.append("div").attr("class","overlapped").style("position","relative").style("top","-20px").style("height","20px").style("background-color","red").style("width","0px"); //barra con importe de barras activas
+//Barra horizontal de totales
+totales.select("div.backgr").append("p").html("Total :" + "14.456.814,33€").style("text-align","right");
+var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales.select("div.backgr").style("width")]);
 
 //Class filters
 var filters = [];
-var temp;
+var barrasActivasSelected;
 d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
@@ -108,53 +118,63 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 		.on('click',function(d) { //when click on name
 			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
 
-			filters[0] = dni;
+			filters[0] = dni;	//Save dni for active bar filtering
 			var filtersText = '';
-			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
+			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes for active bar filtering
 
 			if (d3.select(this).attr('class')==='inactive'){
 				//first time
+				var suma = 0; // Initialize sum variable for active bars
 				legend.select('.btn-success').attr('class','inactive');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //selects contracts that match the dni in its class
+				svg.selectAll('svg .bar'+ filtersText)
+					.style("opacity",activeopacity)
+					.style("visibility","visible") //selects contracts that match the dni in its class
+					.each(function(d,i){ //For each visible bar
+						altura = d3.select(this).attr('height'); //Read bar height
+						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
+					});
+
+				barrasactivas.select('p').html(formatThousand(suma));
+				barrasActivasSelected = svg.selectAll('svg .bar'+ filtersText); //Selection of active bars
+				//Look for activity in all centros de actividad
+
+				barrasactivas.select('span').html(formatThousand(suma));
 				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
+
 				legendcentros.selectAll('.centro') //select all centro buttons
-					.style('background-color','#eee') //first time all buttons to grey
+					.style('background-color','#eee') //first time all buttons to grey color
 					.each(function(d, i){	// for each button
 					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
-					 	if ( temp.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
+					 	if ( barrasActivasSelected.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
 					 })
+				totales.select("div.overlapped").style("width",totalsDomain(suma));
 				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
-				//svg.selectAll('.personatable text').remove(	);
-			//	svg.selectAll('.persontable>text').remove();
 				filtros.select('#filterlayout1').html("<strong>" + d.people + "</strong> <br>Importe: <strong>" + d.importe + "€</strong><br>nº de contratos: " + d.ncontratos + "").style('opacity','1.0'); //write in description
-				//svg.selectAll('.description').text("");
-				// if (d.ncontratos == '-') { //don't show  ( ) if the field entidad is empty
-				// 		svg.select('.persontable').append('text').text(d.people).attr("class","vipname")
-				// 		.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
-				// 		.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
-				// } else {
-				// 		svg.select('.persontable').append('text').text(d.people + " (contratos: " + d.ncontratos + ", importe: " + d.importe + "€)" ).attr("class","vipname")
-				// 		.attr("x", function(d) { return randomvar == 0 ? 40 : 0;})
-				// 		.attr("y", function(d) { return randomvar == 0 ? 40 : height + 40;});
-				// }
-				// svg.select('.persontable').append('text').text(d.description).attr("class","description")
-				// 		.attr("x", function(d) { return randomvar == 0 ? 40 : 0;})
-				// 		.attr("y", function(d) { return randomvar == 0 ? 60 : height + 60;});
 				
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success'){
 				delete filters[0];
+				var suma = 0;
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
-			//	svg.selectAll('.persontable>text').remove()
 				legendcentros.selectAll('.centro') //select all centro buttons
 					.style('background-color','#eee') //first time all buttons to grey
-				//svg.selectAll('.description').text("");
-				//svg.selectAll('.personatable').remove(	);
 				filtros.select('#filterlayout1').html("Todos").style('opacity','0.3'); //Erase from description
 				d3.select(this).attr("class",function(d) { return "inactive";}); //removes .success class
-				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText)
+					.style("opacity",.4)
+					.style("visibility","visible")
+					.each(function(d,i){ //For each visible bar
+						altura = d3.select(this).attr('height'); //Read bar height
+						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
+					});
+
+				barrasactivas.select('p').html(formatThousand(suma));
+				totales.select("div.overlapped").style("width",totalsDomain(suma));
+
+					barrasactivas.select('span').html(formatThousand(suma));
+
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -170,34 +190,40 @@ d3.tsv("data/thinglist_val2015.tsv", function(error, data) {//reads the thinglis
 		.text(function(d) { return d.cosa; })
 		.on('click',function(d) { //when click on name
 			var cosa = d.cosa;
-
 			filters[1] = d.cosa;	//Assign to filters array
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
-
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs thing'){
 				//first time
+				var suma = 0;
 				legendcosas.select('.btn-success').attr('class','inactive btn btn-default btn-xs thing');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible"); //select the rects by the chosen filters 
+				svg.selectAll('svg .bar'+ filtersText)
+					.style("opacity",activeopacity)
+					.style("visibility","visible")
+					.each(function(d,i){ //For each visible bar
+						altura = d3.select(this).attr('height'); //Read bar height
+						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
+					});
+				barrasactivas.select('span').html(formatThousand(suma));
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
-				//svg.selectAll('.personatable text').remove(	);
-		//		svg.selectAll('.persontable>text').remove()
 				filtros.select('#filterlayout3').html("<strong>" + d.cosa + "</strong>").style('opacity','1.0');
-				//svg.selectAll('.description').text("");
-			// 	svg.select('.persontable').append('text').text(d.cosa).attr("class","vipname")
-			// 		.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
-			// 		.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			// //second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs thing'){
 				delete filters[1];
+				var suma = 0;
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
-		//		svg.selectAll('.persontable>text').remove()
 				filtros.select('#filterlayout3').html("Todos").style('opacity','0.3');
-				//svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs thing";}); //removes .success class
-				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText)
+					.style("opacity",.4)
+					.style("visibility","visible")
+					.each(function(d,i){ //For each visible bar
+						altura = d3.select(this).attr('height'); //Read bar height
+						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
+					});
+					barrasactivas.select('span').html(formatThousand(suma));
 			}
 		});	
 }); //end read thinglist.tsv file
@@ -212,38 +238,53 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 		.text(function(d) { return d.descripCat; }) //Elige el idioma de la leyenda
 		.on('click',function(d) { //when click on name
 			var centro = d.centro;
-
 			filters[2] = d.centro;
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
 
 			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
 				//first time
+				var suma = 0;
 				legendcentros.select('.btn-success').attr('class','inactive btn btn-default btn-xs centro');
 				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar'+ filtersText).style("opacity",activeopacity).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText)
+					.style("opacity",activeopacity)
+					.style("visibility","visible")
+					.each(function(d,i){ //For each visible bar
+						altura = d3.select(this).attr('height'); //Read bar height
+						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
+					});
+
+				barrasactivas.select('p').html(formatThousand(suma));
+				totales.select("div.overlapped").style("width",totalsDomain(suma));
+
+				barrasactivas.select('span').html(formatThousand(suma));
+
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
-				//svg.selectAll('.personatable text').remove(	);
 				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
-		//		svg.selectAll('.persontable>text').remove()
-				//svg.selectAll('.description').text("");
-				// svg.select('.persontable').append('text').text(d.descripEs).attr("class","vipname")
-				// 	.attr("x", function() { return (randomvar == 0) ? 40 : 0;})
-				// 	.attr("y", function() { return (randomvar == 0) ? 40 : height + 40;});
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs centro'){
 				delete filters[2];
+				var suma= 0;
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
-		//		svg.selectAll('.persontable>text').remove()
 				filtros.select('#filterlayout2').html("Todos").style('opacity','0.3');
-				//svg.selectAll('.personatable').remove(	);
 				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs centro";}); //removes .success class
-				svg.selectAll('svg .bar'+ filtersText).style("opacity",.4).style("visibility","visible");
+				svg.selectAll('svg .bar'+ filtersText)
+					.style("opacity",.4)
+					.style("visibility","visible")
+					.each(function(d,i){ //For each visible bar
+						altura = d3.select(this).attr('height'); //Read bar height
+						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
+					});
+
+					barrasactivas.select('p').html(formatThousand(suma));
+					totales.select("div.overlapped").style("width",totalsDomain(suma));
+
+					barrasactivas.select('span').html(formatThousand(suma));
+
 			}
 		});
-//	legendcentros.select('#publicitat').html("Of. Publicitat Anuncis Oficials");
-//	legendcentros.select('#tecnologies').html("S. Tecnologies de la informacio y la comunicacio"); //TODO COntinuar con otros centros presupuestarios
 }); //end read thinglist.tsv file
 
 //On load write "Todos" in the selection description
@@ -324,7 +365,7 @@ topline.append('line')
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
-				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '') + "  " + d.dni.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '').replace(/'/g,'') + "  " + d.dni.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
@@ -369,7 +410,8 @@ topline.append('line')
 				d3.select(this).style("border","1px solid #888"); //adds class success to button
 			}
 		});
-		
+
+	
 	//Special dates
 	specialdates.append("text")
 		.attr("class", "annotation-related")
