@@ -31,7 +31,7 @@ var margin = {top: 15, right: 20, bottom: 70, left: 65},
     width = vis.node().clientWidth - margin.left - margin.right,
     height = (isMobile ? 400 : 550) - margin.top - margin.bottom;
 
-var	topvalue = 500000,
+var	topvalue = 62000,
 	activeopacity = 0.8;
 
 var ES = d3.locale(es_ES),
@@ -64,7 +64,7 @@ var xScale = d3.time.scale()
     .range([0, width]);   // map these the the chart width = total width minus padding at both sides
 
 //var parseDate = d3.time.format("%m-%d-%Y").parse;
-var parseDate = d3.time.format("%d/%m/%Y").parse;
+var parseDate = d3.time.format("%Y-%m-%d").parse;
 
 // define the x axis
 var xAxis = d3.svg.axis()
@@ -94,7 +94,7 @@ var legend = d3.select("#legend").attr("class", "legend");
 var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
 var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 
-d3.tsv("data/viplist_subval2015.tsv", function(error, data) {//reads the viplist.tsv file
+d3.tsv("data/viplist.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -137,7 +137,7 @@ d3.tsv("data/viplist_subval2015.tsv", function(error, data) {//reads the viplist
 }); //end read viplist.tsv file
 
 //Legend de cosas
-d3.tsv("data/thinglist_subval2015.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/thinglist.tsv", function(error, data) {//reads the thinglist.tsv file
 	legendcosas.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -169,7 +169,7 @@ d3.tsv("data/thinglist_subval2015.tsv", function(error, data) {//reads the thing
 }); //end read thinglist.tsv file
 
 //Legend de centros presupuestarios
-d3.tsv("data/centroslist_subval2015.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/centroslist.tsv", function(error, data) {//reads the thinglist.tsv file
 	legendcentros.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -203,7 +203,7 @@ d3.tsv("data/centroslist_subval2015.tsv", function(error, data) {//reads the thi
 }); //end read thinglist.tsv file
 
 //Enters data.tsv and starts the graph-----------------------------------------
-d3.tsv("data/data_subval2015.tsv", type, function(error, data) {//reads the data.tsv file
+d3.tsv("data/data.tsv", type, function(error, data) {//reads the data.tsv file
 	data.forEach(function(d) {
     d.date = parseDate(d.date);
   });
@@ -389,7 +389,7 @@ topline.append('line')
         d3.select(".x.axis")
             .call(xAxis);
         
-    // Update bars
+        // Update bars
 		barstimescale.selectAll(".bar")
 			.attr("x", function(d) { return xScale(d.date); })
 			.attr("width", barwidth+1)
