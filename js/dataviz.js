@@ -100,7 +100,7 @@ var randomselect = d3.select("#randomselect");
 var totales = d3.select("#totales");
 
 var totalImporte = 14456814.33; //Total of all contratos
-totales.append("div").attr("class","backgr").style("width","80%").style("height","20px").style("background-color","#4C9ED9"); //barra total
+totales.append("div").attr("class","backgr").style("width","100%").style("height","20px").style("background-color","#4C9ED9"); //barra total
 totales.append("div").attr("class","overlapped").style("position","relative").style("top","-20px").style("height","20px").style("background-color","red").style("width","0px"); //barra con importe de barras activas
 //Barra horizontal de totales
 totales.select("div.backgr").append("p").html("Total :" + "14.456.814,33€").style("text-align","right");
@@ -134,14 +134,14 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-<<<<<<< HEAD
+
 				barrasactivas.select('p').html(formatThousand(suma));
 				barrasActivasSelected = svg.selectAll('svg .bar'+ filtersText); //Selection of active bars
 				//Look for activity in all centros de actividad
-=======
+
 				barrasactivas.select('span').html(formatThousand(suma));
 				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
->>>>>>> 24_importebarras
+
 				legendcentros.selectAll('.centro') //select all centro buttons
 					.style('background-color','#eee') //first time all buttons to grey color
 					.each(function(d, i){	// for each button
@@ -169,12 +169,12 @@ d3.tsv("data/viplist_val2015.tsv", function(error, data) {//reads the viplist.ts
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-<<<<<<< HEAD
+
 				barrasactivas.select('p').html(formatThousand(suma));
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
-=======
+
 					barrasactivas.select('span').html(formatThousand(suma));
->>>>>>> 24_importebarras
+
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -254,12 +254,12 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-<<<<<<< HEAD
+
 				barrasactivas.select('p').html(formatThousand(suma));
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
-=======
+
 				barrasactivas.select('span').html(formatThousand(suma));
->>>>>>> 24_importebarras
+
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
 				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
 			//second time
@@ -277,12 +277,12 @@ d3.tsv("data/centroslist_val2015.tsv", function(error, data) {//reads the centro
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-<<<<<<< HEAD
+
 					barrasactivas.select('p').html(formatThousand(suma));
 					totales.select("div.overlapped").style("width",totalsDomain(suma));
-=======
+
 					barrasactivas.select('span').html(formatThousand(suma));
->>>>>>> 24_importebarras
+
 			}
 		});
 }); //end read thinglist.tsv file
