@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+	<title>Upload your Data</title>
+	<meta http-equiv="content-type" content="text/html"/>
+	<meta name="description" content="archiving thoughts and images" />
+	<meta charset="utf-8">
+	<!-- generic meta -->
+	<meta content="montera34" name="author" />
+	<meta name="title" content="Upload your Data" />
+	<meta content="Gráfico para explicar cómo y en qué se reparten los contratos menores de un Ayuntamiento" />
+	<meta content="visualización de datos, contratos menores, transparencia" name="keywords" />
+	
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../css/libs/bootstrap.min.css" />
+</head>
+<body>
+<div id="fb-root"></div>
+	<div class="container main-container">
+		<h1><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Visualizando contratos de la administraci&oacute;n</h1>
+		<a class="btn btn-info pull-right" href="https://github.com/montera34/contratosmenores" role="button">Colabora <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
+		<div class="row">
+			<ul class="nav nav-tabs">
+				<li role="presentation"><a href="/contratosmenores/home.html">Inicio</a></li>
+			  <li role="presentation" class="dropdown active">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"  class="disabled">
+						Valencia <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href=/contratosmenores/valencia/contratosmenores/2015/index.html>Contratos menores 2015</a></li>
+						<li><a href="/contratosmenores/valencia/subvenciones/2015/index.html">Subvenciones 2015</a></li>
+						<li><a href="/contratosmenores/valencia/contratosmenores/2016/index.html">Contratos menores 2016</a></li>
+					</ul>
+				</li>
+				<li role="presentation" class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"  class="disabled">
+						Zaragoza <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="/contratosmenores/zaragoza/facturas/2016/index.html">Facturas 2016</a></li>
+					</ul>
+				</li>
+				<li role="presentation"><a href="/contratosmenores/madrid/sanidad/2015/index.html">Sanidad Comunidad de Madrid 2015</a></li>
+				<li role="presentation"><a href="/contratosmenores/paracuellos/contratosmenores/2014/index.html">Contratos menores Paracuellos 2014</a></li>
+			</ul>
+		</div>
+		<h2>Upload your data</h2>
+		<p>You can upload a file containing your data to explore them in a time-series interactive visualization map. Find out in the <a href="https://github.com/montera34/contratosmenores/wiki/Upload-your-data">wiki</a> how to structure your data before uploading them.</p>
+		<form enctype="multipart/form-data" action="upload.php" method="post">
+			<label for="dataname">Give a title to your data</label><br>
+			<input type="text" name="dataname"><br>
+			<input type="file" name="fileToUpload"><br>
+			<input type="submit" value="Upload Data" name="submit">
+		</form>
+	<div class="page-footer text-muted">
+		<div class="container">
+			<p>Proyecto colaborativo desarrollado por <a href="http://numeroteca.org">numeroteca.org</a> + <a href="https://twitter.com/elctrodnd21">@elctrodnd21</a> + <a href="https://twitter.com/martgnz">@martgnz</a> + <a href="https://smalldata.noblogs.org/">Leo</a> | Alojado en <a href="http://montera34.com">montera34.com</a>.<br>
+			Puedes contribuir al proyecto en <a href="https://github.com/montera34/contratosmenores">github.com/montera34/contratosmenores</a></p>
+			<p>C&oacute;digo basado en la visualizaci&oacute;n de los gastos de las "tarjetas black" de Caja Madrid/Bankia disponible en <a href="https://github.com/numeroteca/tarjetasblack">https://github.com/numeroteca/tarjetasblack</a>.
+			</p>
+		</div>
+	</div>
+</div>	
+<script src="/contratosmenores/js/d3.v3.min.js"></script>
+<script src="/contratosmenores/js/lodash.js"></script>
+
+<script src="../js/lib/jquery-3.2.0.min.js"></script>
+<script src="../js/lib/bootstrap.min.js"></script>
+
+</body>
+</html>
