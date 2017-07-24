@@ -18,11 +18,11 @@ do
     name=`cut -f $indx $1 | head -n 1`
     echo "Taxonomy "$i":" $name; #extract taxonomy name
     #PIVOT TABLE FOR EACH TAXONOMY (NAME | LENGTH | SUM)
-    awk -F'\t' -v var=$indx 'NR>1 {a[$var]++; b[$var]+=$2;} END {for (i in a) {printf ("%s\t%i\t%i\n"),i, a[i], b[i]}}' $1 | sort -t"$TAB" -k 3 -rn > taxonomy.$name.temp
+    awk -F'\t' -v var=$indx 'NR>1 {a[$var]++; b[$var]+=$2;} END {for (i in a) {printf ("%s\t%i\t%i\n"),i, a[i], b[i]}}' $1 | sort -t"$TAB" -k 3 -rn > taxonomy.$i.temp
     echo "Writing file taxonomy.$name.temp"
     #Remove special characters and take first 14 letters. Then paste as first column
-    paste <(sed "s/[!@#$.,%^&*?\' ]//g" taxonomy.$name.temp | cut -f1 | cut -c1-14) taxonomy.$name.temp > $DIR/taxonomy.$name.tsv
+    paste <(sed "s/[!@#$.,%^&*?\' ]//g" taxonomy.$name.temp | cut -f1 | cut -c1-14) taxonomy.$i.temp > $DIR/taxonomy.$i.tsv
     #Add header in taxonomy file
-    sed -i '1i id\tname\tlength\tsum' $DIR/taxonomy.$name.tsv
-    rm taxonomy.$name.temp #Remove temporary file
+    sed -i '1i id\tname\tlength\tsum' $DIR/taxonomy.$i.tsv
+    rm taxonomy.$i.temp #Remove temporary file
 done

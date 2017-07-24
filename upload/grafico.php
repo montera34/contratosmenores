@@ -5,7 +5,7 @@ $files2 = scandir($dir, 1);	//list of files
 $taxonomies = []; //initialize array to hold taxonomies names 
 foreach ($files2 as $key => $value) { //for each file
 	//match the regexp
-	preg_match('/(taxonomy)\.[a-z]\w+/', $value, $matches, PREG_OFFSET_CAPTURE);
+	preg_match('/(taxonomy)\.\w+/', $value, $matches, PREG_OFFSET_CAPTURE);
 	if (!empty($matches)) { //if not empty. There is match..
 		$taxonomy = explode('.', $matches[0][0]); 
 		array_push($taxonomies, $taxonomy[1]); //push taxonomy name
@@ -78,48 +78,27 @@ print_r($taxonomies);
 		<h2>Contratos menores | Ayuntamiento de Valencia 2015</h2>
 		<div class="row" id="select">
 		<?php 
-		foreach ($taxonomies as $value) {
-			echo '<div class="col-md-4"><h5>'.$value.'<h5><div class="dropdown"> 
-					<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Selecciona proveedor<span class="caret"></span></button>
-					<ul id="legend'.$value.'" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		foreach ($taxonomies as $index => $value) {
+			echo '<div class="col-md-4"><h5>'.$index.'<h5><div class="dropdown"> 
+					<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu'.$index.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Selecciona proveedor<span class="caret"></span></button>
+					<ul id="legend'.$index.'" class="dropdown-menu" aria-labelledby="dropdownMenu'.$index.'">
 					</ul>
 				</div>
 			</div>';
 		}
 		 ?>
-<!-- 			<div class="col-md-4">
-				<h5>Taxonomia 1</h5>
-				<div class="dropdown"> 
-					<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Selecciona proveedor<span class="caret"></span></button>
-					<ul id="legend" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<h5>Taxonomia 2</h5>
-				<div id="legendcentros"></div>
-			</div>
-			<div class="col-md-4">
-				<h5>Taxonomia 3</h5>
-				<div id="legendcosas"></div></small>
-			</div> -->
 		</div>
+
 		<div id="filters" class="row">
-			<div class="col-md-4">
-				<div class="well well-sm">
-					<div id="filterlayout1" class="filtro "></div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="well well-sm">
-					<div id="filterlayout2" class="filtro"></div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="well well-sm">
-					<div id="filterlayout3" class="filtro"></div>
-				</div>
-			</div>
+		<?php 
+		foreach ($taxonomies as $index => $value) {
+			echo '<div class="col-md-4">
+							<div class="well well-sm">
+								<div id="filterlayout'.$index.'" class="filtro "></div>
+							</div>
+						</div>';
+		}
+		?>
 		</div>
 		<div class="row">
 			<div class="col-md-4" style="padding-bottom: 1.2em;" id="barrasactivas">
@@ -135,8 +114,7 @@ print_r($taxonomies);
 		</div>
 		<div id="vis"></div>
 		<div class="row" id="select">
-			<div id="description" class="col-md-7">
-				<p>Datos: <a href="http://www.valencia.es/ayuntamiento/ayuntamiento.nsf/vDocumentosTituloAux/EFF174B8AF93B148C1258075004465D7?OpenDocument&bdOrigen=ayuntamiento%2Fayuntamiento.nsf&idapoyo=&lang=1">Descargados de Ayuntamiento de Valencia</a>.</p>
+			<div id="description" class="col-md-7">		
 				<p>Datos limpiados con <a href="http://openrefine.org/">OpenRefine</a>.</p>
 			</div>
 		</div>
@@ -151,6 +129,7 @@ print_r($taxonomies);
 	</div>
 </div>	
 <script src="../js/d3.v3.min.js"></script>
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
 <script src="../js/lodash.js"></script>
 <script src="js/dataviz.js"></script>
 <script src="../js/lib/jquery-3.2.0.min.js"></script>
