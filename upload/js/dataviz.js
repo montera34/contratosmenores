@@ -78,9 +78,6 @@ var barstimescale = svg.append('g').attr('id','barstimescale');
 var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').replace(/\,+/g, '').replace(/[{()}]/g, '').toLowerCase();};
 
 //Legends
-var legend = d3.select("#legendquien");
-var legendcosas = d3.select("#legendcosas").attr("class", "legendcosas");
-var legendcentros = d3.select("#legendcentros").attr("class", "legendcentros");
 var filtros = d3.select("#filters");
 var barrasactivas = d3.select("#barrasactivas");
 var randomselect = d3.select("#randomselect");
@@ -98,71 +95,81 @@ var filters = [];
 var barrasActivasSelected;
 
 // Loop must go here
-// Detect number of legends.
-// For i in legends.length()
+// Detect number of legends from html.
+dropdowns = d3.selectAll("ul[id]");// Select dropdowns that correspond to taxonomies
+var legends = [];
+for (var i = 1; i <= dropdowns.size(); i++) { //for each dropdown
+	var legend = d3.select("#legend"+(i-1).toString());	//select legend0, legend1, etc...
+	d3.tsv("data/taxonomy."+i.toString()+".tsv", function(error, data) {//reads the taxonomy.$i.tsv file
+		legend.selectAll('div') 
+			.data(data)
+			.enter().append("li").append("a")
+			.attr("class", function(d) { return "inactive";})
+			.text(function(d) { return (d.name == '-')? d.name + ' ' : d.name +  " ("+ d.length +") ";});
+	}); //end read taxonomy.$i.tsv file
+	console.log(legend);
+}
 
-d3.tsv("data/taxonomy.quien.tsv", function(error, data) {//reads the viplist.tsv file
-	legend.selectAll('div')
-		.data(data)
-		.enter().append("li").append("a")
-		.attr("class", function(d) { return "inactive";})
-		.text(function(d) { return (d.name == '-')? d.name + ' ' : d.name +  " ("+ d.length +") ";})
-		.on('click',function(d) { //when click on name
-			var id = replacement(d.name); //flats and lowercases id of contractor
-			console.log(id);
-			filters[0] = id;	//Save id for active bar filtering
-			var filtersText = '';
-			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes for active bar filtering
-
-			if (d3.select(this).attr('class')==='inactive'){
-				//first time
-				var suma = 0; // Initialize sum variable for active bars
-				legend.select('.btn-success').attr('class','inactive');
-				svg.selectAll('svg .bar').style("visibility","hidden");
-				svg.selectAll('svg .bar'+ filtersText)
-					.style("opacity",activeopacity)
-					.style("visibility","visible") //selects contracts that match the id in its class
-					.each(function(d,i){ //For each visible bar
-						altura = d3.select(this).attr('height'); //Read bar height
-						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
-					});
-				barrasactivas.select('p').html(formatThousand(suma)+'€');
-				barrasActivasSelected = svg.selectAll('svg .bar'+ filtersText); //Selection of active bars
-				//Look for activity in all centros de actividad
-				barrasactivas.select('span').html(formatThousand(suma)+'€');
-				legendcentros.selectAll('.centro') //select all centro buttons
-					.style('background-color','#eee') //first time all buttons to grey color
-					.each(function(d, i){	// for each button
-					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
-					 	if ( barrasActivasSelected.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
-					 })
-				totales.select("div.overlapped").style("width",totalsDomain(suma));
-				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
-				filtros.select('#filterlayout1').html("<strong>" + d.name + "</strong> <br>Importe: <strong>" + d.sum + "€</strong><br>nº de contratos: " + d.length + "").style('opacity','1.0'); //write in description
-			//second time
-			} else if (d3.select(this).attr('class')==='btn-success'){
-				delete filters[0];
-				var suma = 0;
-				var filtersText = '';
-				filters.forEach(function(item){filtersText += '.' + item;});
-				legendcentros.selectAll('.centro') //select all centro buttons
-					.style('background-color','#eee') //first time all buttons to grey
-				filtros.select('#filterlayout1').html("Todos").style('opacity','0.3'); //Erase from description
-				d3.select(this).attr("class",function(d) { return "inactive";}); //removes .success class
-				svg.selectAll('svg .bar'+ filtersText)
-					.style("opacity",.4)
-					.style("visibility","visible")
-					.each(function(d,i){ //For each visible bar
-						altura = d3.select(this).attr('height'); //Read bar height
-						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
-					});
-				barrasactivas.select('p').html(formatThousand(suma)+'€');
-				totales.select("div.overlapped").style("width",totalsDomain(suma));
-				barrasactivas.select('span').html(formatThousand(suma)+'€');
-			}
-		}).append('img')
-		.attr('src', function(d) { return d.img; });
-}); //end read viplist.tsv file
+// d3.tsv("data/taxonomy.quien.tsv", function(error, data) {//reads the viplist.tsv file
+// 	legend.selectAll('div')
+// 		.data(data)
+// 		.enter().append("li").append("a")
+// 		.attr("class", function(d) { return "inactive";})
+// 		.text(function(d) { return (d.name == '-')? d.name + ' ' : d.name +  " ("+ d.length +") ";})
+// 		.on('click',function(d) { //when click on name
+// 			var id = replacement(d.name); //flats and lowercases id of contractor
+// 			filters[0] = id;	//Save id for active bar filtering
+// 			var filtersText = '';
+// 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes for active bar filtering
+// 			if (d3.select(this).attr('class')==='inactive'){
+// 				//first time
+// 				var suma = 0; // Initialize sum variable for active bars
+// 				legend.select('.btn-success').attr('class','inactive');
+// 				svg.selectAll('svg .bar').style("visibility","hidden");
+// 				svg.selectAll('svg .bar'+ filtersText)
+// 					.style("opacity",activeopacity)
+// 					.style("visibility","visible") //selects contracts that match the id in its class
+// 					.each(function(d,i){ //For each visible bar
+// 						altura = d3.select(this).attr('height'); //Read bar height
+// 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
+// 					});
+// 				barrasactivas.select('p').html(formatThousand(suma)+'€');
+// 				barrasActivasSelected = svg.selectAll('svg .bar'+ filtersText); //Selection of active bars
+// 				//Look for activity in all centros de actividad
+// 				barrasactivas.select('span').html(formatThousand(suma)+'€');
+// 				legendcentros.selectAll('.centro') //select all centro buttons
+// 					.style('background-color','#eee') //first time all buttons to grey color
+// 					.each(function(d, i){	// for each button
+// 					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
+// 					 	if ( barrasActivasSelected.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
+// 					 })
+// 				totales.select("div.overlapped").style("width",totalsDomain(suma));
+// 				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
+// 				filtros.select('#filterlayout1').html("<strong>" + d.name + "</strong> <br>Importe: <strong>" + d.sum + "€</strong><br>nº de contratos: " + d.length + "").style('opacity','1.0'); //write in description
+// 			//second time
+// 			} else if (d3.select(this).attr('class')==='btn-success'){
+// 				delete filters[0];
+// 				var suma = 0;
+// 				var filtersText = '';
+// 				filters.forEach(function(item){filtersText += '.' + item;});
+// 				legendcentros.selectAll('.centro') //select all centro buttons
+// 					.style('background-color','#eee') //first time all buttons to grey
+// 				filtros.select('#filterlayout1').html("Todos").style('opacity','0.3'); //Erase from description
+// 				d3.select(this).attr("class",function(d) { return "inactive";}); //removes .success class
+// 				svg.selectAll('svg .bar'+ filtersText)
+// 					.style("opacity",.4)
+// 					.style("visibility","visible")
+// 					.each(function(d,i){ //For each visible bar
+// 						altura = d3.select(this).attr('height'); //Read bar height
+// 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
+// 					});
+// 				barrasactivas.select('p').html(formatThousand(suma)+'€');
+// 				totales.select("div.overlapped").style("width",totalsDomain(suma));
+// 				barrasactivas.select('span').html(formatThousand(suma)+'€');
+// 			}
+// 		}).append('img')
+// 		.attr('src', function(d) { return d.img; });
+// }); //end read viplist.tsv file
 
 //Enters data.tsv and starts the graph-----------------------------------------
 d3.tsv("data/data.reordenados.tsv", type, function(error, data) {//reads the data.tsv file
