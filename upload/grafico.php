@@ -11,8 +11,6 @@ foreach ($files2 as $key => $value) { //for each file
 		array_push($taxonomies, $taxonomy[1]); //push taxonomy name
 	}
 }
-print_r($taxonomies);
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -131,6 +129,7 @@ print_r($taxonomies);
 <script src="../js/d3.v3.min.js"></script>
 <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
 <script src="../js/lodash.js"></script>
+<script src="https://d3js.org/d3-queue.v3.min.js"></script>
 <script src="js/dataviz.js"></script>
 <script src="../js/lib/jquery-3.2.0.min.js"></script>
 <script src="../js/lib/bootstrap.min.js"></script>

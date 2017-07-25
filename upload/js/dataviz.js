@@ -94,22 +94,27 @@ var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales
 var filters = [];
 var barrasActivasSelected;
 
+	
 // Loop must go here
 // Detect number of legends from html.
 dropdowns = d3.selectAll("ul[id]");// Select dropdowns that correspond to taxonomies
-var legends = [];
-for (var i = 1; i <= dropdowns.size(); i++) { //for each dropdown
-	var legend = d3.select("#legend"+(i-1).toString());	//select legend0, legend1, etc...
-	d3.tsv("data/taxonomy."+i.toString()+".tsv", function(error, data) {//reads the taxonomy.$i.tsv file
-		legend.selectAll('div') 
-			.data(data)
-			.enter().append("li").append("a")
-			.attr("class", function(d) { return "inactive";})
-			.text(function(d) { return (d.name == '-')? d.name + ' ' : d.name +  " ("+ d.length +") ";});
-	}); //end read taxonomy.$i.tsv file
-	console.log(legend);
-}
+var legends = []; //Initialization of legends
+var q = d3.queue();	//queue for loading all files at once
 
+for (var k = 1; k <= dropdowns.size(); k++){	//For each file
+	legends[k-1] = d3.select("#legend"+(k-1).toString());	//select legend0, legend1, etc...
+    q = q.defer(d3.tsv, "data/taxonomy."+k.toString()+".tsv");	//append defer functions to queue
+}
+	q.awaitAll(function(error, files) {	//callback function when all files are loaded
+		for (var i = files.length-1; i >= 0; i--) {
+			legends[i].selectAll('div')
+				.data(files[i])
+				.enter().append("li").append("a")
+				.attr("class", function(d) { return "inactive";})
+				.text(function(d) { return (d.name == '-')? d.name + ' ' : d.name +  " ("+ d.length +") ";});
+		}	
+	});
+//console.log(dataset);
 // d3.tsv("data/taxonomy.quien.tsv", function(error, data) {//reads the viplist.tsv file
 // 	legend.selectAll('div')
 // 		.data(data)
@@ -278,6 +283,7 @@ d3.tsv("data/data.reordenados.tsv", type, function(error, data) {//reads the dat
 			.attr("height", function(d) { return Math.abs(yScale( d.importe > topvalue ? topvalue : d.importe) - yScale(0)); });
 	}
 });
+
 
 function type(d) {
   return d;
