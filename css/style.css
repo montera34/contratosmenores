@@ -117,7 +117,7 @@ line.topline:hover {
 	font-size:12px;
 }
 
-.limpieza, #limpieza {
+rect.limpieza, #limpieza {
 	fill: #66CC00;
 	background-color: #66CC00;
 }

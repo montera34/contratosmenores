@@ -31,7 +31,7 @@ var margin = {top: 15, right: 20, bottom: 70, left: 65},
     width = vis.node().clientWidth - margin.left - margin.right,
     height = (isMobile ? 400 : 550) - margin.top - margin.bottom;
 
-var	topvalue = 5000000,
+var	topvalue = 9000000,
 	activeopacity = 0.8;
 
 var ES = d3.locale(es_ES),
@@ -64,7 +64,7 @@ var xScale = d3.time.scale()
     .range([0, width]);   // map these the the chart width = total width minus padding at both sides
 
 //var parseDate = d3.time.format("%m-%d-%Y").parse;
-var parseDate = d3.time.format("%Y/%m/%d").parse;
+var parseDate = d3.time.format("%d/%m/%Y").parse;
 
 // define the x axis
 var xAxis = d3.svg.axis()
@@ -99,11 +99,11 @@ var barrasactivas = d3.select("#barrasactivas");
 var randomselect = d3.select("#randomselect");
 var totales = d3.select("#totales");
 
-var totalImporte = 14456814.33; //Total of all contratos
+var totalImporte = 303632275.38; //Total of all contratos
 totales.append("div").attr("class","backgr").style("width","100%").style("height","20px"); //barra total
 totales.append("div").attr("class","overlapped").style("position","relative").style("top","-20px").style("height","20px").style("background-color","#AAAAAA").style("width","0px"); //barra con importe de barras activas
 //Barra horizontal de totales
-totales.select("div.backgr").append("p").html("Total: " + "14.456.814,33€").style("text-align","right").style("margin-right","5px").style("font-size","11px");
+totales.select("div.backgr").append("p").html("Total: " + "303.632.275,38€").style("text-align","right").style("margin-right","5px").style("font-size","11px");
 var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales.select("div.backgr").style("width")]);
 
 //Class filters
@@ -117,7 +117,7 @@ d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplis
 		.attr("class", function(d) { return "inactive";})
 		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people +  " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
-			//var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
+			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
 
 			filters[0] = dni;	//Save dni for active bar filtering
 			var filtersText = '';
@@ -136,11 +136,11 @@ d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplis
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
 
-				barrasactivas.select('p').html(formatThousand(suma)+'€');
+				barrasactivas.select('p').html(formatThousand(suma.toFixed(2))+'€');
 				barrasActivasSelected = svg.selectAll('svg .bar'+ filtersText); //Selection of active bars
 				//Look for activity in all centros de actividad
 
-				barrasactivas.select('span').html(formatThousand(suma)+'€');
+				barrasactivas.select('span').html(formatThousand(suma.toFixed(2))+'€');
 				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
 
 				legendcentros.selectAll('.centro') //select all centro buttons
@@ -170,9 +170,9 @@ d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplis
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-				barrasactivas.select('p').html(formatThousand(suma)+'€');
+				barrasactivas.select('p').html(formatThousand(parseFloat(suma).toFixed(2))+'€');
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
-				barrasactivas.select('span').html(formatThousand(suma)+'€');
+				barrasactivas.select('span').html(formatThousand(parseFloat(suma).toFixed(2))+'€');
 			}
 		}).append('img')
 		.attr('src', function(d) { return d.img; });
@@ -203,7 +203,7 @@ d3.tsv("data/thinglist_factzgz2017.tsv", function(error, data) {//reads the thin
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-				barrasactivas.select('span').html(formatThousand(suma)+'€');
+				barrasactivas.select('span').html(formatThousand(suma.toFixed(2))+'€');
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs thing"); //adds class success to button
 				filtros.select('#filterlayout3').html("<strong>" + d.cosa + "</strong>").style('opacity','1.0');
 			// //second time
@@ -221,7 +221,7 @@ d3.tsv("data/thinglist_factzgz2017.tsv", function(error, data) {//reads the thin
 						altura = d3.select(this).attr('height'); //Read bar height
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
-					barrasactivas.select('span').html(formatThousand(suma)+'€');
+					barrasactivas.select('span').html(formatThousand(suma.toFixed(2))+'€');
 			}
 		});	
 }); //end read thinglist.tsv file
@@ -233,7 +233,7 @@ d3.tsv("data/centroslist_factzgz2017.tsv", function(error, data) {//reads the ce
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs centro";})
 		.attr("id",function(d) { return d.centro;})
-		.text(function(d) { return d.descripEsCorto; }) //Elige el idioma de la leyenda
+		.text(function(d) { return d.descripEs; }) //Elige el idioma de la leyenda
 		.on('click',function(d) { //when click on name
 			var centro = d.centro;
 			filters[2] = d.centro;
@@ -253,13 +253,13 @@ d3.tsv("data/centroslist_factzgz2017.tsv", function(error, data) {//reads the ce
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
 
-				barrasactivas.select('p').html(formatThousand(suma)+'€');
+				barrasactivas.select('p').html(formatThousand(suma.toFixed(2))+'€');
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
 
-				barrasactivas.select('span').html(formatThousand(suma)+'€');
+				barrasactivas.select('span').html(formatThousand(suma.toFixed(2))+'€');
 
 				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
-				filtros.select('#filterlayout2').html("<strong>" + d.descripCat + "</strong>").style('opacity','1.0');
+				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs centro'){
 				delete filters[2];
@@ -276,10 +276,10 @@ d3.tsv("data/centroslist_factzgz2017.tsv", function(error, data) {//reads the ce
 						suma += yScale.invert(0) - yScale.invert(altura); // Calculate importe and sum
 					});
 
-					barrasactivas.select('p').html(formatThousand(suma)+'€');
+					barrasactivas.select('p').html(formatThousand(suma.toFixed(2))+'€');
 					totales.select("div.overlapped").style("width",totalsDomain(suma));
 
-					barrasactivas.select('span').html(formatThousand(suma)+'€');
+					barrasactivas.select('span').html(formatThousand(suma.toFixed(2))+'€');
 
 			}
 		});
@@ -316,7 +316,7 @@ d3.tsv("data/data_factzgz2017.tsv", type, function(error, data) {//reads the dat
 		.text("Euros");
 
 //Top line
-topline.append('line')
+/*topline.append('line')
 	.attr('y1', yScale(50000))
 	.attr('y2', yScale(50000))
 	.attr('x1', 0)
@@ -354,7 +354,7 @@ topline.append('line')
 	      .duration(500)
 	      .style("opacity", 0);
 	});
-
+*/
 	//Sets the bars with time scale
 	barstimescale.selectAll(".bar")
 		.data(data)
@@ -417,7 +417,7 @@ topline.append('line')
 		.attr("y", height+40)
 		.text("Eventos relacionados")
 		.attr("id","eventos_title");
-
+/*
 	specialdates.append("text")
 		.attr("class", "annotation-elections")
 		.attr("x", function(d) { return xScale(parseDate('2015-05-25')) + 6; })
@@ -456,7 +456,7 @@ topline.append('line')
 		.on("mouseout", function(d) {
 		    d3.select(this).attr('y1', height+44)
 			});
-	
+	*/
 	// Debounce the resize with lodash
 	// https://css-tricks.com/the-difference-between-throttling-and-debouncing/
     window.onresize = _.debounce(resize, 300);
@@ -476,7 +476,7 @@ topline.append('line')
         d3.select(".x.axis")
             .call(xAxis);
         
-        // Update bars
+    // Update bars
 		barstimescale.selectAll(".bar")
 			.attr("x", function(d) { return xScale(d.date); })
 			.attr("width", barwidth+1)
@@ -484,7 +484,7 @@ topline.append('line')
 			.attr("height", function(d) { return Math.abs(yScale( d.importe > topvalue ? topvalue : d.importe) - yScale(0)); });
 		
 		// Update legend and lines
-		specialdates.select(".annotation-related")
+/*		specialdates.select(".annotation-related")
 			.attr("x", 5)
 			.attr("y", height+40);
 
@@ -513,6 +513,7 @@ topline.append('line')
 			.attr('y2', height+41)
 			.attr('x1', function(d) { return xScale(parseDate('2015-06-13')) + 1; })
 			.attr('x2', function(d) { return xScale(parseDate('2015-06-13')) + 1; });
+			*/
 	}
 });
 
