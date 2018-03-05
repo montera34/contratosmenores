@@ -183,7 +183,7 @@ mark {
 	background: #febaad;
 }
 
-.embed h1, .embed .nav, .embed #description, .embed .twitter-share-button, .embed .page-footer {
+.embed h1, .embed .nav, .embed #description, .embed .twitter-share-button, #footer.embed{
 	display:none;
 }
 .embed h2 {
