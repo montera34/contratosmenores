@@ -151,7 +151,8 @@ d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplis
 					 })
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
 				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
-				filtros.select('#filterlayout1').html("<strong>" + d.people + "</strong> <br>Importe: <strong>" + d.importe + "€</strong><br>nº de contratos: " + d.ncontratos + "").style('opacity','1.0'); //write in description
+				filtros.select('#filterlayout1').html("<strong>" + d.people + "</strong> <br>Importe: <strong>" + 
+				formatThousand(parseFloat(d.importe).toFixed(2)) + "€</strong><br>nº de contratos: " + d.ncontratos + "").style('opacity','1.0'); //write in description
 				
 			//second time
 			} else if (d3.select(this).attr('class')==='btn-success'){
