@@ -31,7 +31,7 @@ var margin = {top: 15, right: 20, bottom: 70, left: 65},
     width = vis.node().clientWidth - margin.left - margin.right,
     height = (isMobile ? 400 : 550) - margin.top - margin.bottom;
 
-var	topvalue = 9000000,
+var	topvalue = 56000,
 	activeopacity = 0.8;
 
 var ES = d3.locale(es_ES),
@@ -64,7 +64,7 @@ var xScale = d3.time.scale()
     .range([0, width]);   // map these the the chart width = total width minus padding at both sides
 
 //var parseDate = d3.time.format("%m-%d-%Y").parse;
-var parseDate = d3.time.format("%d/%m/%Y").parse;
+var parseDate = d3.time.format("%Y-%m-%d").parse;
 
 // define the x axis
 var xAxis = d3.svg.axis()
@@ -81,7 +81,7 @@ var randomvar = 0;
 var barstimescale = svg.append('g').attr('id','barstimescale');
 
 //replaces spaces and . in viplist function(d) { return d.SaldoCalculado; }
-var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').replace(/\,+/g, '').replace(/[{()}]/g, '').toLowerCase();};
+var replacement = function(d) { return d.replace(/\s+/g, '').replace(/\.+/g, '').replace(/\,+/g, '').replace(/[{()}]/g, '').replace(/\@+/g, '').toLowerCase();};
 
 //set top line
 var topline = svg.append('g').attr('id','topline');
@@ -99,18 +99,18 @@ var barrasactivas = d3.select("#barrasactivas");
 var randomselect = d3.select("#randomselect");
 var totales = d3.select("#totales");
 
-var totalImporte = 303632275.38; //Total of all contratos
+var totalImporte = 3213973.44; //Total of all contratos
 totales.append("div").attr("class","backgr").style("width","100%").style("height","20px"); //barra total
 totales.append("div").attr("class","overlapped").style("position","relative").style("top","-20px").style("height","20px").style("background-color","#AAAAAA").style("width","0px"); //barra con importe de barras activas
 //Barra horizontal de totales
-totales.select("div.backgr").append("p").html("Total: " + "303.632.275,38€").style("text-align","right").style("margin-right","5px").style("font-size","11px");
+totales.select("div.backgr").append("p").html("Total: " + "3.213.973,44€").style("text-align","right").style("margin-right","5px").style("font-size","11px");
 var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales.select("div.backgr").style("width")]);
 
 //Class filters
 var filters = [];
 var barrasActivasSelected;
 var temp;
-d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplist.tsv file
+d3.tsv("data/viplistZGZCmenores2015.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("li").append("a")
@@ -180,7 +180,7 @@ d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplis
 }); //end read viplist.tsv file
 
 //Legend de cosas
-d3.tsv("data/thinglist_factzgz2017.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/thinglistZGZCmenores2015.tsv", function(error, data) {//reads the thinglist.tsv file
 	legendcosas.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -228,7 +228,7 @@ d3.tsv("data/thinglist_factzgz2017.tsv", function(error, data) {//reads the thin
 }); //end read thinglist.tsv file
 
 //Legend de centros presupuestarios
-d3.tsv("data/centroslist_factzgz2017.tsv", function(error, data) {//reads the centrolist.tsv file
+d3.tsv("data/centroslistZGZCmenores2015.tsv", function(error, data) {//reads the centrolist.tsv file
 	legendcentros.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -290,7 +290,7 @@ d3.tsv("data/centroslist_factzgz2017.tsv", function(error, data) {//reads the ce
 filtros.selectAll('.filtro').html("Todos").style('opacity','0.3');
 
 //Enters data.tsv and starts the graph-----------------------------------------
-d3.tsv("data/data_factzgz2017.tsv", type, function(error, data) {//reads the data.tsv file
+d3.tsv("data/dataZGZCmenores2015rev3.tsv", type, function(error, data) {//reads the data.tsv file
 	data.forEach(function(d) {
     d.date = parseDate(d.date);
   });
@@ -364,7 +364,7 @@ topline.append('line')
 		.style("opacity",0.4)
 		.attr("class",
 			function(d) {
-				return replacement(d.quien) + " bar " + d.centro.toLowerCase().replace(/\.+/g, '').replace(/'/g,'') + "  " + d.dni.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
+				return replacement(d.quien) + " bar " + replacement(d.centro) + "  " + d.dni.toLowerCase() + "  " + d.actividad.replace(/\,+/g, ' ').toLowerCase() + " " + (d.importe < 0 ? " negativo" : " positivo"); 
 			//sets the name of the person without spaces as class for the bar and adds class negativo/positivo depending on value
 		}) 
 	.attr("x", function(d) { return xScale(d.date); })
