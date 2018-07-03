@@ -183,7 +183,7 @@ mark {
 	background: #febaad;
 }
 
-.embed h1, .embed .nav, .embed #description, .embed .twitter-share-button, #footer.embed{
+.embed h1, .embed .nav, .embed #description, .embed .twitter-share-button, #footer.embed	{
 	display:none;
 }
 .embed h2 {
@@ -193,4 +193,9 @@ mark {
 
 #select {
 	margin-bottom: 10px;
+}
+
+#legend {
+	max-height: 500px;
+  overflow-y: auto;
 }
