@@ -27,16 +27,19 @@
 	
 	<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
 	<link rel="stylesheet" type="text/css" href="../../../css/libs/bootstrap.min.css" />
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/b-1.5.2/r-2.2.2/datatables.min.css"/>
+
 </head>
 <body>
-<div id="fb-root"></div>
+	<div id="fb-root"></div>
 	<div class="container main-container">
 		<h1><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Visualizando contratos de la administraci&oacute;n</h1>
 		<a class="btn btn-info pull-right" href="https://github.com/montera34/contratosmenores" role="button">Colabora <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
 		<div class="row">
 			<ul class="nav nav-tabs">
 				<li role="presentation"><a href="/contratosmenores/home.html">Inicio</a></li>
-			  <li role="presentation" class="dropdown active">
+				<li role="presentation" class="dropdown active">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"  class="disabled">
 						Valencia <span class="caret"></span>
 					</a>
@@ -107,6 +110,20 @@
 			<div id="randomselect"></div>
 		</div>
 		<div id="vis"></div>
+		<div id="tableData" class="table-responsive">
+			<table id="theTable" class="table table-striped table-bordered table-condensed table-hover" style="width: 100%;">
+				<tfoot>
+					<tr>
+						<th>actividad</th>
+						<th>centro</th>
+						<th>dni</th>
+						<th>quien</th>
+						<th>importe</th>
+						<th>date</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
 		<div class="row" id="select">
 			<div id="description" class="col-md-7">
 				<p>Datos: <a href="http://www.valencia.es/ayuntamiento/ayuntamiento.nsf/vDocumentosTituloAux/EFF174B8AF93B148C1258075004465D7?OpenDocument&bdOrigen=ayuntamiento%2Fayuntamiento.nsf&idapoyo=&lang=1">Descargados de Ayuntamiento de Valencia</a>.</p>
@@ -117,17 +134,19 @@
 	<div class="page-footer text-muted">
 		<div class="container">
 			<p>Proyecto colaborativo desarrollado por <a href="http://numeroteca.org">numeroteca.org</a> + <a href="https://twitter.com/elctrodnd21">@elctrodnd21</a> + <a href="https://twitter.com/martgnz">@martgnz</a> + <a href="https://smalldata.noblogs.org/">Leo</a> | Alojado en <a href="http://montera34.com">montera34.com</a>.<br>
-			Puedes contribuir al proyecto en <a href="https://github.com/montera34/contratosmenores">github.com/montera34/contratosmenores</a></p>
-			<p>C&oacute;digo basado en la visualizaci&oacute;n de los gastos de las "tarjetas black" de Caja Madrid/Bankia disponible en <a href="https://github.com/numeroteca/tarjetasblack">https://github.com/numeroteca/tarjetasblack</a>.
-			</p>
+				Puedes contribuir al proyecto en <a href="https://github.com/montera34/contratosmenores">github.com/montera34/contratosmenores</a></p>
+				<p>C&oacute;digo basado en la visualizaci&oacute;n de los gastos de las "tarjetas black" de Caja Madrid/Bankia disponible en <a href="https://github.com/numeroteca/tarjetasblack">https://github.com/numeroteca/tarjetasblack</a>.
+				</p>
+			</div>
 		</div>
-	</div>
-</div>	
-<script src="../../../js/d3.v3.min.js"></script>
-<script src="../../../js/lodash.js"></script>
-<script src="js/dataviz.js"></script>
-<script src="../../../js/lib/jquery-3.2.0.min.js"></script>
-<script src="../../../js/lib/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../../js/stats.js"></script>
+	</div>	
+	<script src="../../../js/d3.v3.min.js"></script>
+	<script src="../../../js/lodash.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<!-- <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
+	<script src="js/dataviz.js"></script>
+	<script src="../../../js/lib/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="../../../js/stats.js"></script> -->
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/b-1.5.2/r-2.2.2/datatables.min.js"></script>
 </body>
 </html>
