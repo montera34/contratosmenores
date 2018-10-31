@@ -110,11 +110,13 @@ var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales
 var filters = [];
 var barrasActivasSelected;
 var temp;
+
+// Legend de lista de empresas
 d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplist.tsv file
-	legend.selectAll('div')
+	legendcentros.selectAll('div')
 		.data(data)
-		.enter().append("li").append("a")
-		.attr("class", function(d) { return "inactive";})
+		.enter().append("div")
+		.attr("class", function(d) { return "inactive btn btn-default btn-xs centro";})
 		.text(function(d) { return (d.entidad == '-')? d.people + ' ' : d.people +  " ("+ d.ncontratos +") ";})
 		.on('click',function(d) { //when click on name
 			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
@@ -123,10 +125,10 @@ d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplis
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes for active bar filtering
 
-			if (d3.select(this).attr('class')==='inactive'){
+			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
 				//first time
 				var suma = 0; // Initialize sum variable for active bars
-				legend.select('.btn-success').attr('class','inactive');
+				legendcentros.select('.btn-success').attr('class','inactive btn btn-default btn-xs centro');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar'+ filtersText)
 					.style("opacity",activeopacity)
@@ -143,27 +145,27 @@ d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplis
 				barrasactivas.select('span').html(formatThousand(suma.toFixed(2))+'€');
 				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
 
-				legendcentros.selectAll('.centro') //select all centro buttons
+				legend.selectAll('.centro') //select all centro buttons
 					.style('background-color','#eee') //first time all buttons to grey color
 					.each(function(d, i){	// for each button
 					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
 					 	if ( barrasActivasSelected.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
 					 })
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
-				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
+				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
 				filtros.select('#filterlayout1').html("<strong>" + d.people + "</strong> <br>Importe: <strong>" + 
 				formatThousand(parseFloat(d.importe).toFixed(2)) + "€</strong><br>nº de contratos: " + d.ncontratos + "").style('opacity','1.0'); //write in description
 				
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-success'){
+			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs centro'){
 				delete filters[0];
 				var suma = 0;
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
-				legendcentros.selectAll('.centro') //select all centro buttons
+				legend.selectAll('.centro') //select all centro buttons
 					.style('background-color','#eee') //first time all buttons to grey
 				filtros.select('#filterlayout1').html("Todos").style('opacity','0.3'); //Erase from description
-				d3.select(this).attr("class",function(d) { return "inactive";}); //removes .success class
+				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs centro";}); //removes .success class
 				svg.selectAll('svg .bar'+ filtersText)
 					.style("opacity",.4)
 					.style("visibility","visible")
@@ -229,11 +231,10 @@ d3.tsv("data/thinglist_factzgz2017.tsv", function(error, data) {//reads the thin
 
 //Legend de centros presupuestarios
 d3.tsv("data/centroslist_factzgz2017.tsv", function(error, data) {//reads the centrolist.tsv file
-	legendcentros.selectAll('div')
+	legend.selectAll('div')
 		.data(data)
-		.enter().append("div")
-		.attr("class", function(d) { return "inactive btn btn-default btn-xs centro";})
-		.attr("id",function(d) { return d.centro;})
+		.enter().append("li").append("a")
+		.attr("class", function(d) { return "inactive";})
 		.text(function(d) { return d.descripEs; }) //Elige el idioma de la leyenda
 		.on('click',function(d) { //when click on name
 			var centro = d.centro;
@@ -241,10 +242,10 @@ d3.tsv("data/centroslist_factzgz2017.tsv", function(error, data) {//reads the ce
 			var filtersText = '';
 			filters.forEach(function(item){filtersText += '.' + item;}); //Create string to hold the classes
 
-			if (d3.select(this).attr('class')==='inactive btn btn-default btn-xs centro'){
+			if (d3.select(this).attr('class')==='inactive'){
 				//first time
 				var suma = 0;
-				legendcentros.select('.btn-success').attr('class','inactive btn btn-default btn-xs centro');
+				legend.select('.btn-success').attr('class','inactive');
 				svg.selectAll('svg .bar').style("visibility","hidden");
 				svg.selectAll('svg .bar'+ filtersText)
 					.style("opacity",activeopacity)
@@ -255,20 +256,33 @@ d3.tsv("data/centroslist_factzgz2017.tsv", function(error, data) {//reads the ce
 					});
 
 				barrasactivas.select('p').html(formatThousand(suma.toFixed(2))+'€');
-				totales.select("div.overlapped").style("width",totalsDomain(suma));
+				barrasActivasSelected = svg.selectAll('svg .bar'+ filtersText); //Selection of active bars
+				//totales.select("div.overlapped").style("width",totalsDomain(suma)); // ? se mantiene?
 
 				barrasactivas.select('span').html(formatThousand(suma.toFixed(2))+'€');
-
-				d3.select(this).transition().duration(0).attr("class","btn-success btn btn-default btn-xs centro"); //adds class success to button
+				temp = svg.selectAll('svg .bar'+ filtersText); //temporary to find if in a centro
+				
+				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
 				filtros.select('#filterlayout2').html("<strong>" + d.descripEs + "</strong>").style('opacity','1.0');
+
+				legendcentros.selectAll('.centro') //select all Empresas buttons
+					.style('background-color','#eee') //first time all buttons to grey color
+					.each(function(d, i){	// for each button
+					 	// See if d3.filter(d.centro) returns an non empty object to paint yellow this button
+					 	if ( barrasActivasSelected.filter('.'+d.dni.toLowerCase())[0].length > 0 ) { 
+					 		d3.select(this).style('background-color','yellow');
+					 		}
+					 });
+				totales.select("div.overlapped").style("width",totalsDomain(suma));
+				
 			//second time
-			} else if (d3.select(this).attr('class')==='btn-success btn btn-default btn-xs centro'){
+			} else if (d3.select(this).attr('class')==='btn-success'){
 				delete filters[2];
 				var suma= 0;
 				var filtersText = '';
 				filters.forEach(function(item){filtersText += '.' + item;});
-				filtros.select('#filterlayout2').html("Todos").style('opacity','0.3');
-				d3.select(this).attr("class",function(d) { return "inactive btn btn-default btn-xs centro";}); //removes .success class
+				filtros.select('#filterlayout2').html("Todos").style('opacity','0.3');//Erase from description
+				d3.select(".btn-success").attr("class","inactive"); //removes .success class
 				svg.selectAll('svg .bar'+ filtersText)
 					.style("opacity",.4)
 					.style("visibility","visible")

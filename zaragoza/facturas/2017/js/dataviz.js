@@ -110,6 +110,8 @@ var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales
 var filters = [];
 var barrasActivasSelected;
 var temp;
+
+//Legend de lista de empresas
 d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplist.tsv file
 	legend.selectAll('div')
 		.data(data)
@@ -150,7 +152,9 @@ d3.tsv("data/viplist_factzgz2017.tsv", function(error, data) {//reads the viplis
 					 	if ( barrasActivasSelected.filter('.'+d.centro)[0].length > 0 ) { d3.select(this).style('background-color','yellow');}
 					 })
 				totales.select("div.overlapped").style("width",totalsDomain(suma));
+				
 				d3.select(this).transition().duration(0).attr("class","btn-success"); //adds class success to button
+				
 				filtros.select('#filterlayout1').html("<strong>" + d.people + "</strong> <br>Importe: <strong>" + 
 				formatThousand(parseFloat(d.importe).toFixed(2)) + "€</strong><br>nº de contratos: " + d.ncontratos + "").style('opacity','1.0'); //write in description
 				
