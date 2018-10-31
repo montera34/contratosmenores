@@ -117,7 +117,7 @@ d3.tsv("data/viplistZGZCmenores2017.tsv", function(error, data) {//reads the vip
 		.data(data)
 		.enter().append("div")
 		.attr("class", function(d) { return "inactive btn btn-default btn-xs centro";})
-		.text(function(d) { return d.people})
+		.text(function(d) { return d.people + "(" + d.ncontratos + ")" })
 		.on('click',function(d) { //when click on name
 			var dni = replacement(d.dni).toLowerCase(); //flats and lowercases dni of contractor
 
