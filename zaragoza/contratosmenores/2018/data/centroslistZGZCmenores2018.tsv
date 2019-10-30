@@ -1,11 +1,12 @@
-centro
-Ayuntamiento
-Zaragoza Dinámica
-Zaragoza Cultural
-Zaragoza Deporte
-Ecociudad
-Zaragoza Turismo
-Zaragoza Vivienda
+centro	descripEs	descripEscompleto
+bar	Todos
+ayuntamiento	Ayuntamiento
+dinamica	Zaragoza Dinámica
+cultural	Zaragoza Cultural
+deporte	Zaragoza Deporte
+ecociudad	Ecociudad
+turismo	Zaragoza turismo
+vivienda	Zaragoza Vivienda
 Educación y Bibliotecas
-MercaZaragoza
-ZGZ @ Desarrollo Expo, S.A., en liquidación
+mercazaragoza	MercaZaragoza
+expo	ZGZ @ Desarrollo Expo, S.A., en liquidación
