@@ -99,11 +99,11 @@ var barrasactivas = d3.select("#barrasactivas");
 var randomselect = d3.select("#randomselect");
 var totales = d3.select("#totales");
 
-var totalImporte = 7236600.88	; //Total of all contratos
+var totalImporte = 56968160	; //Total of all contratos
 totales.append("div").attr("class","backgr").style("width","100%").style("height","20px"); //barra total
 totales.append("div").attr("class","overlapped").style("position","relative").style("top","-20px").style("height","20px").style("background-color","#AAAAAA").style("width","0px"); //barra con importe de barras activas
 //Barra horizontal de totales
-totales.select("div.backgr").append("p").html("Total: " + "7.236.600,88€").style("text-align","right").style("margin-right","5px").style("font-size","11px");
+totales.select("div.backgr").append("p").html("Total: " + "56.968.160€").style("text-align","right").style("margin-right","5px").style("font-size","11px");
 var totalsDomain = d3.scale.linear().domain([0, totalImporte]).range([0, totales.select("div.backgr").style("width")]);
 
 //Class filters
