@@ -112,7 +112,7 @@ var barrasActivasSelected;
 var temp;
 
 // Legend de lista de empresas
-d3.tsv("data/viplistZGZCmenores2017.tsv", function(error, data) {//reads the viplist.tsv file
+d3.tsv("data/viplistZGZCmenores2018rev3.tsv", function(error, data) {//reads the viplist.tsv file
 	legendcentros.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -182,7 +182,7 @@ d3.tsv("data/viplistZGZCmenores2017.tsv", function(error, data) {//reads the vip
 }); //end read viplist.tsv file
 
 //Legend de cosas
-d3.tsv("data/thinglistZGZCmenores2017.tsv", function(error, data) {//reads the thinglist.tsv file
+d3.tsv("data/thinglistZGZCmenores2018.tsv", function(error, data) {//reads the thinglist.tsv file
 	legendcosas.selectAll('div')
 		.data(data)
 		.enter().append("div")
@@ -230,7 +230,7 @@ d3.tsv("data/thinglistZGZCmenores2017.tsv", function(error, data) {//reads the t
 }); //end read thinglist.tsv file
 
 //Legend de centros presupuestarios
-d3.tsv("data/centroslistZGZCmenores2017.tsv", function(error, data) {//reads the centrolist.tsv file
+d3.tsv("data/centroslistZGZCmenores2018.tsv", function(error, data) {//reads the centrolist.tsv file
 	legend.selectAll('div')
 		.data(data)
 		.enter().append("li").append("a")
@@ -304,7 +304,8 @@ d3.tsv("data/centroslistZGZCmenores2017.tsv", function(error, data) {//reads the
 filtros.selectAll('.filtro').html("Todos").style('opacity','0.3');
 
 //Enters data.tsv and starts the graph-----------------------------------------
-d3.tsv("data/dataZGZCmenores2017rev1.tsv", type, function(error, data) {//reads the data.tsv file
+d3.tsv("data/dataZGZCmenores2018rev3.tsv", type, function(error, data) {//reads the data.tsv file
+	var parseDate = d3.time.format("%d/%m/%Y").parse;
 	data.forEach(function(d) {
     d.date = parseDate(d.date);
   });
